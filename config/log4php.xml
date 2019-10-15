@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns="http://logging.apache.org/log4php/">
+
+    <appender name="all" class="LoggerAppenderDailyFile">
+        <layout class="LoggerLayoutPattern">
+            <param name="conversionPattern" value="%date{Y-m-d H:i:s,u}|%pid|%message%newline" />
+        </layout>
+        <param name="file" value="/home/simso/www/simso/log/all-%s.log" />
+        <param name="datePattern" value="Y-m-d" />
+    </appender>
+    <appender name="simadmin" class="LoggerAppenderDailyFile">
+        <layout class="LoggerLayoutPattern">
+            <param name="conversionPattern" value="%date{Y-m-d H:i:s,u}|%pid|%message%newline" />
+        </layout>
+        <param name="file" value="/home/simso/www/simso/log/sim/sim-admin-%s.log" />
+        <param name="datePattern" value="Y-m-d" />
+    </appender>
+    <appender name="order" class="LoggerAppenderDailyFile">
+        <layout class="LoggerLayoutPattern">
+            <param name="conversionPattern" value="%date{Y-m-d H:i:s,u}|%pid|%message%newline" />
+        </layout>
+        <param name="file" value="/home/simso/www/simso/log/order/order-%s.log" />
+        <param name="datePattern" value="Y-m-d" />
+    </appender>
+
+
+    <logger name="all">
+        <appender_ref ref="all" />
+    </logger>
+    <logger name="sim_admin">
+        <appender_ref ref="all" />
+        <appender_ref ref="simadmin" />
+    </logger>
+    <logger name="order">
+        <appender_ref ref="all" />
+        <appender_ref ref="order" />
+    </logger>
+</configuration>
+

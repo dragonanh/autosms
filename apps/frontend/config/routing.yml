@@ -1,0 +1,32 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/10-Routing
+
+list_product_category:
+  url: /danh-muc/:slug
+  param: { module: Product, action: listProduct}
+detail_product:
+  url: /chi-tiet-san-pham/:slug
+  param: { module: Product, action: index}
+detail_article:
+  url: /chi-tiet-bai-viet/:slug
+  param: { module: VtArticle, action: index}
+search_product:
+  url: /tim-kiem
+  param: { module: vtPageSearch, action: index}
+
+####################################### AJAX ########################################
+
+####################################### END AJAX ####################################
+
+homepage:
+  url:   /
+  param: { module: Homepage, action: index }
+
+# generic rules
+# please, remove them by adding more specific rules
+default_index:
+  url:   /:module
+  param: { action: index }
+
+default:
+  url:   /:module/:action/*

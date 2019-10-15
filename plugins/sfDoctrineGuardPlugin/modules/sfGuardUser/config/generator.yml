@@ -1,0 +1,30 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           sfGuardUser
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          sf_guard_user
+    with_doctrine_route:   true
+
+    config:
+      filter: 
+        display: [username]
+      fields: ~
+      list:
+        title: Quản lý người dùng
+#        display: [username, email_address, is_active, is_super_admin, last_login]
+      form: ~
+#        class: sfGuardUserCustomAdminForm
+#        display: [username, password, email_address, is_active, is_super_admin]
+#        fields:
+#          username: {label: Tên tài khoản *}
+#          groups_list: {label: Nhóm}
+#          email: {label: Email *}
+      edit:
+        title: Chỉnh sửa người dùng
+      new:
+        title: Thêm mới người dùng

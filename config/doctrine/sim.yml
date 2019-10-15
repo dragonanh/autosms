@@ -1,0 +1,156 @@
+connection: doctrine
+
+Category:
+  options:
+    comment:  'Bang luu danh mục sản phẩm'
+  tableName: category
+  actAs:
+    Timestampable: ~
+    Sluggable: { unique: true, fields: [name], uniqueBy: [name], canUpdate: true, builder: [removeSignClass, removeSign] }
+  columns:
+    name: { type: string(255), comment: 'Ten danh muc' }
+    description: { type: string(255), comment: 'Mô tả' }
+    is_active: { type: integer(1), comment: '0: an, 1: hien thi' }
+    priority: {type: integer(5), default: 10, comment: 'Do uu tien' }
+  indexes:
+    phone_option_id_index:
+      fields: [id]
+  relations:
+    Phone:
+      foreignAlias: Category
+      refClass: ProductCategory
+      local: category_id
+      foreign: product_id
+
+Product:
+  options:
+    comment:  'Bang luu thong tin sản phẩm'
+  tableName: product
+  actAs:
+    Timestampable: ~
+    Sluggable: { unique: true, fields: [name], uniqueBy: [name], canUpdate: true, builder: [removeSignClass, removeSign] }
+  columns:
+    name: { type: string(255), notnull: true, comment: 'Tên sản phẩm' }
+    image_path: { type: string(255), comment: 'Ảnh đại diện' }
+    price: { type: decimal(20), notnull: true, comment: 'Gia tien' }
+    old_price: { type: decimal(20), comment: 'Gia tien truoc day' }
+    description: { type: clob, comment: 'Mô tả' }
+    content: { type: clob, comment: 'Nội dung chi tiết' }
+    status: { type: integer(3), comment: 'Trạng thái của sản phẩm' }
+    priority: {type: integer(5), default: 10, comment: 'Do uu tien' }
+  relations:
+    Category:
+      foreignAlias: Product
+      refClass: ProductCategory
+      local: product_id
+      foreign: category_id
+
+ProductCategory:
+  options:
+    comment:  'Bang luu thong tin san pham thuoc danh muc'
+  tableName: product_category
+  columns:
+    product_id: { type: integer, comment: 'Ten nha mang' }
+    category_id: {type: integer, comment: "Mo ta"}
+  relations:
+    Product:
+      local: product_id
+      foreign: id
+    Category:
+      local: category_id
+      foreign: id
+
+# Bang luu tru don hang
+CustomerOrder:
+  options:
+    comment:  'Bang luu thong tin don hang'
+  tableName: customer_order
+  actAs:
+    Timestampable: ~
+  columns:
+    status: { type: integer(1), default: 0, comment: '0: Don hang moi tao, 1..' }
+    full_name: { type: string(255), comment: 'Ten khach hang' }
+    phone_number: { type: string(20), comment: 'So dien thoai khach hang' }
+    city_id: { type: integer, comment: 'Thanh pho cua khach hang' }
+    address: {type: string(255), comment: "Dia chi khach hang"}
+    note: {type: clob, comment: "Ghi chu cua khach hang"}
+    payment_type: {type: integer, comment: "Hình thức thanh toán"}
+    total_price: {type: decimal, default: 0, comment: "Tong so tien cua don hang"}
+  indexes:
+    customer_order_id_index:
+      fields: [id]
+# Bang luu tru don hang
+DetailOrder:
+  options:
+    comment:  'Bang luu thong tin điện thoại thuoc don hang'
+  tableName: detail_order
+  actAs:
+    Timestampable: ~
+  columns:
+    order_id: { type: integer, comment: 'So id don hang' }
+    product_id: { type: integer, comment: 'id san pham' }
+    product_name: { type: integer, comment: 'ten san pham' }
+    price: {type: decimal, default: 0, comment: 'Gia san pham' }
+    quantity : {type: integer, comment: "Số lượng"}
+  indexes:
+    sim_order_order_id_index:
+      fields: [order_id]
+#bang luu thong tin nhom bai viet
+ArticleGroup:
+  options:
+    comment:  'Bang luu thong tin nhom bai viet'
+  tableName: article_group
+  actAs:
+    Timestampable: ~
+  columns:
+    name: { type: string(255), notnull: true, comment: 'Ten nhom' }
+    description: {type: string(500), comment: "Mo ta"}
+    is_active: { type: boolean, default: false, comment: 'false: Khong kich hoat - true: Kich hoat' }
+    position: {type: string(255), comment: "vi tri hien thi"}
+#bang luu thong tin bai viet
+Article:
+  options:
+    comment:  'Bang luu thong tin bai viet'
+  tableName: article
+  actAs:
+    Timestampable: ~
+    Sluggable: { unique: true, fields: [title], uniqueBy: [title], canUpdate: true, builder: [removeSignClass, removeSign] }
+  columns:
+    title: { type: string(255), comment: 'Tieu de bai viet' }
+    description: { type: clob, comment: 'Mô tả ngắn' }
+    content: { type: clob, extra: ckeditor, notnull: true, comment: 'Noi dung bai viet' }
+    image_path: {type: string(255), comment: "duong dan anh minh hoa bai viet"}
+    status: { type: integer(1), notnull: true, default: 0, comment: "0: khong hien thi, 1: hien thi"}
+    group_id: {type: integer, comment: "id nhom tuong ung cua bai viet"}
+    meta_title: {type: string(255), comment: "meta title"}
+    meta_keyword: {type: string(255), comment: "meta keyword"}
+    meta_description: {type: string(255), comment: "meta description"}
+  indexes:
+    article_id_index:
+      fields: [id]
+  relations:
+    ArticleGroup:
+      local: group_id
+      foreign: id
+      onDelete: SET NULL
+
+SessionsAdmin:
+  options:
+    symfony:
+      form: false
+      filter: false
+  columns:
+    sess_id: {type: string(64), primary: true}
+    sess_data: {type: clob, notnull: true}
+    sess_time: {type: integer(11), notnull: true}
+    sess_userid: {type: integer(20), default: null}
+
+VtUserSigninLock:
+  options:
+    symfony:
+      form: false
+      filter: false
+  columns:
+    user_name: {type: string(255)}
+    created_time: {type: integer}
+

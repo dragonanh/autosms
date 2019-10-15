@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd" >
+<xliff version="1.0">
+    <file original="global" source-language="en" datatype="plaintext">
+        <header/>
+        <body>
+            <trans-unit id="1">
+                <source>Lưu</source>
+                <target>Save</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Chi tiết</source>
+                <target>Detail</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Xóa</source>
+                <target>Delete</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Quay trở lại danh sách</source>
+                <target>Back to the list</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Lưu và thêm mới</source>
+                <target>Save and add</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Thêm mới</source>
+                <target>New</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd" >
+<xliff version="1.0">
+  <file original="global" source-language="en" datatype="plaintext">
+    <header/>
+    <body>
+      <trans-unit>
+        <source>Username</source>
+        <target>Tên đăng nhập</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Password</source>
+        <target>Mật khẩu</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Remember</source>
+        <target>Ghi nhớ</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Signin</source>
+        <target>Đăng nhập</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Forgot your password?</source>
+        <target>Quên mật khẩu?</target>
+      </trans-unit>
+      <trans-unit>
+        <source>You don't have the required permission to access this page.</source>
+        <target>Bạn không có quyền truy cập vào trang này.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Username or E-Mail</source>
+        <target>Tên đăng nhập/ E-mail</target>
+      </trans-unit>
+      <trans-unit>
+        <source>The username and/or password is invalid.</source>
+        <target>Thông tin đăng nhập không đúng.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Oops! The page you asked for is secure and you do not have proper credentials.</source>
+        <target>Bạn không có quyền truy cập vào trang này.</target>
+      </trans-unit>
+      
+    </body>
+  </file>
+</xliff>

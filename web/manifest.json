@@ -1,0 +1,11 @@
+{
+  "name": "Web Push Demo",
+  "short_name": "push_demo",
+  "version": "1.0.0",
+  "description": "A simple site with push notification",
+  "author": {
+    "name": "Abhishek Saha"
+  },
+  "gcm_sender_id": "335332105315",
+  "gcm_user_visible_only": true
+}

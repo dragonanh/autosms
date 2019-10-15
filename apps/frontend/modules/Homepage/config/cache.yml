@@ -1,0 +1,9 @@
+phongThuy:
+  enabled:     true
+  lifetime:    3600
+sitemap:
+  enabled:     true
+  lifetime:    3600
+index:
+  enabled:     true
+  lifetime:    300

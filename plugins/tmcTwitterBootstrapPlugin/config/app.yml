@@ -1,0 +1,87 @@
+all:
+  # Change these if you'd like to move/modify CSS & JS files
+  tmcTwitterBootstrapPlugin:
+    bootstrap_path:              /tmcTwitterBootstrapPlugin/css/bootstrap.min.css
+    responsive_bootstrap_path:   /tmcTwitterBootstrapPlugin/css/bootstrap-responsive.min.css
+    admin_styles_path:           /tmcTwitterBootstrapPlugin/css/styles.css
+    jquery_path:                 /tmcTwitterBootstrapPlugin/js/jquery.min.js
+    bootstrap_js_path:           /tmcTwitterBootstrapPlugin/js/bootstrap.min.js
+    admin_js_path:               /tmcTwitterBootstrapPlugin/js/global.js
+
+#    # The route/URI to use for the nav bar's "brand" link
+#    profile_route: @homepage?username=
+#    # The link next for the nav bar's "brand" link
+#    dashboard_name: Administration
+#    header:
+#      menu:
+#        Quản Lý Âm Nhạc:
+#          dropdown:
+#            Quản Lý Nhạc Sỹ:
+#              route: vt_composer
+#            Quản Lý Thể Loại Nhạc:
+#              route: vt_music_genre
+#            Quản Lý Ca Sỹ:
+#              route: vt_singer
+#        Quản Lý Sự Kiện:
+##          credentials: [admin]
+#          dropdown:
+#            Quản Lý Sự Kiện:
+#               route: vt_event
+#            Quản Lý Video Sự Kiện:
+#              route: vt_event_video
+#        Quản Lý Sản Phẩm:
+#          module_name: productmanage
+#          route: vt_gift
+#        Quản Trị:
+##          credentials: [admin]
+#          dropdown:
+#            Quản Trị Người Dùng Backend:
+#               route: sf_guard_user 
+#        Phê Duyệt Cho Người Dùng:
+#          dropdown:
+#            Phê Duyệt Bình Luận Tin Tức:
+#               route: vt_comment_article
+#            Phê Duyệt Bình Luận Ca Sĩ:
+#              route: vt_comment_singer_commentsingermanager
+#            Phê Duyệt Bình Luận Bài Hát:
+#              route: vt_comment_song  
+#            Phê Duyệt Bình Luận Playlist:
+#              route: vt_comment_playlist  
+#
+#        Quản Lý Bài Viết:
+#          dropdown:
+#            Quản Lý Tin Tức:
+#              route: vt_article
+#        setup:
+#          credentials: [admin]
+#          dropdown:
+#            global vars:
+#              credentials: [admin]
+#              route: global_configuration
+#              divider: yes
+#            country:
+#              route: country
+#            currency:
+#              route: currency
+#              divider: yes
+#            templates:
+#              route: template
+#            templates by country:
+#              route: template_country
+#
+#        users:
+#          credentials: [admin]
+#          dropdown:
+#            users:
+#              route: sf_guard_user
+#            groups:
+#              route: sf_guard_group
+#            permissions:
+#              route: sf_guard_permission
+#
+#        tools:
+#          dropdown:
+#            csv uploads history:
+#              route: site_login_file
+#    footer:
+#      copyright:          "Tito Miguel Costa"

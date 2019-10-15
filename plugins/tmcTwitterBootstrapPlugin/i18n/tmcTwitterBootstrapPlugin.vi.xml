@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd" >
+<xliff version="1.0">
+  <file original="global" source-language="en" datatype="plaintext">
+    <header />
+    <body>
+      <!-- Geral -->
+      <trans-unit id="1">
+        <source>Required.</source>
+        <target>Bắt buộc.</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Invalid.</source>
+        <target>Không hợp lệ.</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>"%value%" is not an integer.</source>
+        <target>"%value%" không phải số nguyên.</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>is empty</source>
+        <target>rỗng</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>from</source>
+        <target>từ</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>đến</source>
+        <target>até</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Created at</source>
+        <target>Tạo lúc</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Updated at</source>
+        <target>Cập nhật lúc</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>developed by</source>
+        <target>Xây dựng và phát triển bởi</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>School Portal</source>
+        <target>Hệ thống quản lý IpCamera</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Logout</source>
+        <target>Đăng xuất</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>No results</source>
+        <target>Không kết quả</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Search</source>
+        <target>Tìm kiếm</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Reset filter</source>
+        <target>Xóa bộ lọc</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Choose an action</source>
+        <target>Chọn một tác vụ</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>(page %%page%%/%%nb_pages%%)</source>
+        <target>(trang %%page%%/%%nb_pages%%)</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>[0] No results|[1] 1 result|(1,+Inf] %1% results</source>
+        <target>[0] 0 kết quả|[1] 1 kết quả|(1,+Inf] %1% kết quả</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>A problem occurs when deleting the selected items as some items do not exist anymore.</source>
+        <target>Một vấn đề xảy ra khi xóa các mục đã chọn một số đối tượng không tồn tại nữa.</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Checked</source>
+        <target>Chọn</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Unchecked</source>
+        <target>Không chọn</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Are you sure?</source>
+        <target>Bạn có chắc muốn xóa không?</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Max per page</source>
+        <target>Số bản ghi/trang</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Back to list</source>
+        <target>Quay lại danh sách</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Invalid position.</source>
+        <target>Vị trí không hợp lệ.</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Object moved to position num.%d.</source>
+        <target>Đối tượng di chuyển đến vị trí n.%d.</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Object promoted.</source>
+        <target>Object promoted.</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Object demoted.</source>
+        <target>Object demoted.</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Specify the new position</source>
+        <target>Chỉ rõ vị trí mới</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Show</source>
+        <target>Chi tiết</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Reset filter</source>
+        <target>Reset</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Success</source>
+        <target>Thành công</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Warning</source>
+        <target>Thông báo</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Error</source>
+        <target>Lỗi</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>[0] no result|[1] 1 result|(1,+Inf] %1% results</source>
+        <target>[0] 0 kết quả |[1] 1 kết quả|(1,+Inf] %1% kết quả</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>(page %%page%%/%%nb_pages%%)</source>
+        <target>(page %%page%%/%%nb_pages%%)</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Choose an action</source>
+        <target>Chọn một tác vụ</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Go</source>
+        <target>Chọn</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Sidebar text</source>
+        <target>Text lateral</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Version history</source>
+        <target>Phiên bản</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>No versions found</source>
+        <target>Không tìm thấy phiên bản</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Remember</source>
+        <target>Ghi nhớ</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Username or E-Mail</source>
+        <target>Tên đăng nhập hoặc email</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Password</source>
+        <target>Mật khẩu</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>The username and/or password is invalid.</source>
+        <target>Tên đăng nhập hoặc mật khẩu không đúng</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Signin</source>
+        <target>Đăng nhập</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Forgot your password?</source>
+        <target>Bạn quên mật khẩu?</target>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Want to register?</source>
+        <target>Bạn muốn đăng ký?</target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>Oops! The page you asked for is secure and you do not have proper credentials.</source>
+        <target>Rất tiếc!Trang bạn yêu cầu là an toàn và bạn không có thông tin thích hợp..</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Logged in as</source>
+        <target> </target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="56">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="58">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="60">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="61">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="65">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="67">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="69">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="73">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="74">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="75">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="76">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="77">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="79">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="80">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="82">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="87">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="88">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="89">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="90">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="91">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="93">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="94">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="95">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="96">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="97">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="98">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="99">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="100">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="101">
+        <source>New</source>
+        <target>Tạo mới</target>
+      </trans-unit>
+      <trans-unit id="102">
+        <source>Edit</source>
+        <target>Chỉnh sửa</target>
+      </trans-unit>
+      <trans-unit id="103">
+        <source>Delete</source>
+        <target>Xóa</target>
+      </trans-unit>
+      <trans-unit id="104">
+        <source>List</source>
+        <target>Danh sách</target>
+      </trans-unit>
+      <trans-unit id="105">
+        <source>Save</source>
+        <target>Lưu</target>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>Save and add</source>
+        <target>Lưu và thêm mới</target>
+      </trans-unit>
+      <trans-unit id="107">
+        <source>Cancel</source>
+        <target>Hủy</target>
+      </trans-unit>
+
+      <!-- Filters -->
+      <trans-unit id="108">
+        <source>Reset</source>
+        <target>Reset</target>
+      </trans-unit>
+      <trans-unit id="109">
+        <source>Filter</source>
+        <target>Lọc</target>
+      </trans-unit>
+
+      <!-- List -->
+      <trans-unit id="110">
+        <source>No result</source>
+        <target>0 kết quả.</target>
+      </trans-unit>
+      <trans-unit id="111">
+        <source>Actions</source>
+        <target>Tác vụ</target>
+      </trans-unit>
+      <trans-unit id="112">
+        <source>(page %%page%%/%%nb_pages%%)</source>
+        <target>(page %%page%%/%%nb_pages%%)</target>
+      </trans-unit>
+      <trans-unit id="113">
+        <source>asc</source>
+        <target>Tăng dần</target>
+      </trans-unit>
+      <trans-unit id="114">
+        <source>desc</source>
+        <target>Giảm dần</target>
+      </trans-unit>
+
+      <!-- Pagination -->
+      <trans-unit id="115">
+        <source>First page</source>
+        <target>Trang đầu</target>
+      </trans-unit>
+      <trans-unit id="116">
+        <source>Trang tiếp </source>
+        <target>Página anterior</target>
+      </trans-unit>
+      <trans-unit id="117">
+        <source>Next page</source>
+        <target>Trang trước</target>
+      </trans-unit>
+      <trans-unit id="118">
+        <source>Last page</source>
+        <target>Trang cuối</target>
+      </trans-unit>
+
+      <!-- Form -->
+      <trans-unit id="119">
+        <source>The item was created successfully.</source>
+        <target>Thêm mới thành công.</target>
+      </trans-unit>
+      <trans-unit id="120">
+        <source>The item was updated successfully.</source>
+        <target>Cập nhật thành công.</target>
+      </trans-unit>
+      <trans-unit id="121">
+        <source>The item was created successfully. You can add another one below.</source>
+        <target>Thêm mới thành công.Bạn có thể thêm mới tiếp</target>
+      </trans-unit>
+      <trans-unit id="122">
+        <source>The item was updated successfully. You can add another one below.</source>
+        <target>Cập nhật thành công. Bạn có thể cập nhật tiếp.</target>
+      </trans-unit>
+      <trans-unit id="123">
+        <source>The item has not been saved due to some errors.</source>
+        <target>Một số lỗi xảy ra trong quá trình lưu.</target>
+      </trans-unit>
+      <trans-unit id="124">
+        <source>The item was deleted successfully.</source>
+        <target>Xóa thành công.</target>
+      </trans-unit>
+      <trans-unit id="125">
+        <source>You must at least select one item.</source>
+        <target>Bạn phải chọn ít nhất một mục.</target>
+      </trans-unit>
+      <trans-unit id="126">
+        <source>You must select an action to execute on the selected items.</source>
+        <target>Bạn phải chọn một tác vụ để thực hiện các mục đã chọn.</target>
+      </trans-unit>
+      <trans-unit id="127">
+        <source>A problem occurs when deleting the selected items as some items do not exist anymore.</source>
+        <target>Một vấn đề xảy ra khi xóa các mục đã chọn một số đối tượng không tồn tại nữa.</target>
+      </trans-unit>
+      <trans-unit id="128">
+        <source>The selected items have been deleted successfully.</source>
+        <target>Xóa thành công các mục đã chọn.</target>
+      </trans-unit>
+      <trans-unit id="129">
+        <source>A problem occurs when deleting the selected items.</source>
+        <target>Một vấn đề xảy ra khi xóa các mục đã chọn.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

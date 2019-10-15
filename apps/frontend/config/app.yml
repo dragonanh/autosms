@@ -1,0 +1,20 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/11-App
+
+# default values
+all:
+  max_sim_per_page: 50;
+  sf_captchagd:
+    image_width:                  100       # chieu rong captcha
+    image_height:                 35        # chieu cao captcha
+    charset:                      'ABCDEFGHJKLMNPRSTUXYZabcdefghkmnprstuyz23456789'
+    code_length_min:              4        # ky tu toi thieu
+    code_length_max:              4         # ky tu toi da
+    perturbation:                 0.1      # ti le gay nhieu
+    num_lines:                    0         # so duong ke gay nhieu (2)
+    noise_level:                  1         # muc do gay nhieu (4)
+    use_transparent_text:         true
+    text_transparency_percentage: 10        # lam trong suot ky tu (10)
+    image_bg_color:               ffffff    # mau cua anh nen
+    text_color:                   252525    # mau cac ky tu
+    line_color:                   616161    # mau cua duong gay nhieu                616161    # mau cua duong gay nhieu

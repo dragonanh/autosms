@@ -1,0 +1,30 @@
+_footer:
+  enabled:     true
+  lifetime:    3600
+_header:
+  enabled:     true
+  lifetime:    3600
+_mainMenu:
+  enabled:     true
+  lifetime:    3600
+_moreInfo:
+  enabled:     true
+  lifetime:    3600
+_telcoFilter:
+  enabled:     true
+  lifetime:    3600
+_listArticleSidebar:
+  enabled:     true
+  lifetime:    3600
+_listNewOrder:
+  enabled:     true
+  lifetime:    120
+_listSimSale:
+  enabled:     true
+  lifetime:    3600
+_banner:
+  enabled:     true
+  lifetime:    3600
+_listSimResult:
+  enabled:     true
+  lifetime:    600
