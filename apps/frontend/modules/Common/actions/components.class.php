@@ -9,12 +9,5 @@
  */
 class CommonComponents extends sfComponents
 {
-    public function executeHeader(){
-//      $this->listCategory = CategoryTable::getListActiveCategory(7);
-    }
 
-    public function executeSidebarRight(){
-      $this->listFeaturedProduct = ProductTable::getListFeaturedProduct(5);
-      $this->listArticle = ArticleTable::getListArticleByPosition(ArticleGroupPosition::SIDEBAR_RIGHT, 7);
-    }
 }

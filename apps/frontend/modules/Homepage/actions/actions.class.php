@@ -13,4 +13,8 @@ class HomepageActions extends sfActions
   public function executeIndex(sfWebRequest $request){
 
   }
+
+  public function executeCreate(sfWebRequest $request){
+    $this->form = new CreateProgramForm();
+  }
 }

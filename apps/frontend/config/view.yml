@@ -13,11 +13,6 @@ default:
     #language:     en
     #robots:       index, follow
 
-  stylesheets:
-    - /css/style.css: { media: all }
-
-  javascripts:
-    - /js/jquery.min.js
 
   has_layout:     true
   layout:         layout

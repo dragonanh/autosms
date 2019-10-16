@@ -15,11 +15,12 @@
                 Dịch vụ Tin nhắn báo bận thông minh của Viettel đã cung cấp tính năng tạo lịch báo bận theo khoảng thời gian.<br>
 
                 Với tính năng tạo lịch báo bận theo thời gian, Quý khách có thể tùy biến và đặt lịch báo bận với nội dung và thời gian
-                linh hoạt theo nhu cầu.<br> Hãy bấm ngay để tạo lịch báo bận của riêng Quý khách.</p><a style="MARGIN-LEFT: 40%;" class="mocha-download-a" href="download.html">TẠO LỊCH BÁO BẬN</a>
+                linh hoạt theo nhu cầu.<br> Hãy bấm ngay để tạo lịch báo bận của riêng Quý khách.</p>
+            <a style="MARGIN-LEFT: 40%;" class="mocha-download-a" href="<?php echo url_for('@createProgram') ?>">TẠO LỊCH BÁO BẬN</a>
         </div>
     </div>
     <div class="mocha-item">
-        <img src="../autosms/images/content.jpg" style="width:100%">
+        <img src="/images/content.jpg" style="width:100%">
     </div>
 
 </div>

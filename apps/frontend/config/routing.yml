@@ -1,21 +1,14 @@
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/10-Routing
 
-list_product_category:
-  url: /danh-muc/:slug
-  param: { module: Product, action: listProduct}
-detail_product:
-  url: /chi-tiet-san-pham/:slug
-  param: { module: Product, action: index}
-detail_article:
-  url: /chi-tiet-bai-viet/:slug
-  param: { module: VtArticle, action: index}
-search_product:
-  url: /tim-kiem
-  param: { module: vtPageSearch, action: index}
+createProgram:
+  url: /tao-lich
+  param: { module: Homepage, action: create}
 
 ####################################### AJAX ########################################
-
+ajaxCreateProgram:
+  url: /ajax/tao-lich
+  param: { module: Homepage, action: ajaxCreate}
 ####################################### END AJAX ####################################
 
 homepage:

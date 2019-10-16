@@ -4,6 +4,6 @@
         <a class="top-menu active" href="#">LIÊN HỆ</a>
         <a class="top-menu" href="#">HỎI & ĐÁP</a>
 
-        <a class="top-menu" href="/">TRANG CHỦ</a>
+        <a class="top-menu" href="#">TRANG CHỦ</a>
     </div>
 </div>
