@@ -19,13 +19,28 @@ class HomepageActions extends sfActions
   }
 
   public function executeDetail(sfWebRequest $request){
+    $id = $request->getParameter('id');
+
+    if(!$id){
+      $this->forward404();
+    }
+
     //todo: lay thong tin lich bao ban tu ws
     $schedule = [
       'content' => 'Đang họp nhé anh em',
       'start_time' => '17-10-2019 16:00:00',
       'end_time' => '17-10-2019 16:30:00',
     ];
+
     $this->form = new CreateProgramForm(null, ['schedule' => $schedule]);
+    $this->id = $id;
+
+    if($request->isMethod('post')){
+      $token = $request->getParameter('token');
+      if($token == $this->form->getCSRFToken()){
+        
+      }
+    }
   }
 
   public function executeAjaxCreate(sfWebRequest $request){
