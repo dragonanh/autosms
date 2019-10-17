@@ -4,6 +4,9 @@
 createProgram:
   url: /tao-lich
   param: { module: Homepage, action: create}
+detailProgram:
+  url: /chi-tiet/:id
+  param: { module: Homepage, action: detail}
 
 ####################################### AJAX ########################################
 ajaxCreateProgram:

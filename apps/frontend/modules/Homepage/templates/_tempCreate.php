@@ -1,4 +1,5 @@
-<form method="post" action="<?php echo url_for('@ajaxCreateProgram') ?>">
+<form id="formCreateProgram" method="post" action="<?php echo url_for('@ajaxCreateProgram') ?>">
+  <?php echo $form->renderHiddenFields() ?>
   <p style="text-align: center;">Chào mừng Quý khách tới dịch vụ báo bận thông minh – Auto SMS của Viettel
   </p><br>
   <p>Vui lòng nhập các thông tin để tạo gói dịch vụ báo bận thông minh của riêng bạn:</p>

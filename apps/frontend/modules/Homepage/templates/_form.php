@@ -5,6 +5,7 @@
 <p>Nội dung báo bận vui lòng sử dụng Tiếng Việt không dấu</p>
 <div>
   <?php echo $form['content']->render() ?>
+  <div class="field-error"><?php echo $form['content']->getError() ?></div>
 </div>
 <br>
 <div class="bg-success" style="width:25%;text-align: center;color: #FFF;">
@@ -19,6 +20,7 @@
     </td>
     <td style="width: 90%;">
       <?php echo $form['start_time']->render() ?>
+      <div class="field-error"><?php echo $form['start_time']->getError() ?></div>
     </td>
   </tr>
   <tr>
@@ -27,6 +29,7 @@
     </td>
     <td>
       <?php echo $form['end_time']->render() ?>
+      <div class="field-error"><?php echo $form['end_time']->getError() ?></div>
     </td>
   </tr>
 </table>

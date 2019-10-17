@@ -1,4 +1,4 @@
-<div id="footer" style="margin-top:20px;border-top:1px solid #e1e1e1;">
+<div id="footer" style="border-top:1px solid #e1e1e1;">
     <div class="mocha-footer">
         <a style="display: inline; float: left; height: 65px; width: 185px; margin-top:-8px;" >
             <img src="/images/favicon.ico" style="height:100px; padding-left:60px;">
