@@ -38,7 +38,10 @@ class HomepageActions extends sfActions
     if($request->isMethod('post')){
       $token = $request->getParameter('token');
       if($token == $this->form->getCSRFToken()){
-        
+        $params = [];
+        $mps = new MpsWS();
+        $mpsUrl = $mps->getMpsUrl($params);
+        $this->redirect($mpsUrl);
       }
     }
   }
