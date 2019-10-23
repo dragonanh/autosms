@@ -11,7 +11,15 @@
 class HomepageActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request){
-
+    $params = [
+      'SUB' => 'AUTOSMS_DAILY', 'CATE' => 'autosms', 'ITEM' => 'qrcode',
+      'SUB_CP' => 'ghd', 'CONT' => 'qrcode', 'PRICE' => 0,
+      'REQ' => '', 'PRO' => 'GHD', 'SER' => 'AutoSMS'
+    ];
+    $mps = new MpsWS();
+    $mpsUrl = $mps->getMpsChargeUrl($params);
+    var_dump($mpsUrl);die;
+    $this->redirect($mpsUrl);
   }
 
   public function executeCreate(sfWebRequest $request){
@@ -26,24 +34,34 @@ class HomepageActions extends sfActions
     }
 
     //todo: lay thong tin lich bao ban tu ws
-    $schedule = [
-      'content' => 'Đang họp nhé anh em',
-      'start_time' => '17-10-2019 16:00:00',
-      'end_time' => '17-10-2019 16:30:00',
-    ];
+    $autoSms = new AutosmsWS();
+    $detail = $autoSms->detailSchedule($id);
+    if($detail['errorCode'] == 0){
+      $this->error = null;
+      $schedule = $detail['data'];
+      $schedule['start_time'] = date('d-m-Y H:i:s', strtotime($schedule['start_time']));
+      $schedule['end_time'] = date('d-m-Y H:i:s', strtotime($schedule['end_time']));
+      $this->form = new CreateProgramForm(null, ['schedule' => $schedule]);
+      $this->id = $id;
 
-    $this->form = new CreateProgramForm(null, ['schedule' => $schedule]);
-    $this->id = $id;
-
-    if($request->isMethod('post')){
-      $token = $request->getParameter('token');
-      if($token == $this->form->getCSRFToken()){
-        $params = [];
-        $mps = new MpsWS();
-        $mpsUrl = $mps->getMpsUrl($params);
-        $this->redirect($mpsUrl);
+      if($request->isMethod('post')){
+        $token = $request->getParameter('token');
+        if($token == $this->form->getCSRFToken()){
+          $params = [
+            'SUB' => 'AUTOSMS_DAILY', 'CATE' => 'autosms', 'ITEM' => 'qrcode',
+            'SUB_CP' => 'ghd', 'CONT' => 'qrcode', 'PRICE' => 0,
+            'REQ' => '', 'PRO' => 'GHD', 'SER' => 'AutoSMS'
+          ];
+          $mps = new MpsWS();
+          $mpsUrl = $mps->getMpsChargeUrl($params);
+          $this->redirect($mpsUrl);
+        }
       }
+    }else{
+      $this->error = $detail['message'];
     }
+
+
   }
 
   public function executeAjaxCreate(sfWebRequest $request){
@@ -51,12 +69,16 @@ class HomepageActions extends sfActions
     $form = new CreateProgramForm();
     $form->bind($request->getParameter($form->getName()));
     if($form->isValid()){
+      $formValues = $form->getValues();
       //todo: goi ws tao lich
-      $result = true;
-      if($result){
+      $autoSms = new AutosmsWS();
+      $startTime = date('YmdHis', strtotime($formValues['start_time']));
+      $endTime = date('YmdHis', strtotime($formValues['end_time']));
+      $result =$autoSms->createSchedule($formValues['content'],$startTime, $endTime);
+      if($result['errorCode'] == 0){
         $errorCode = 0;
         $message = 'Khởi tạo thành công';
-        $id = 1;
+        $id = $result['id'];
 
         //tao qrcode
         $content = $this->generateUrl('detailProgram', ['id' => $id], true);
@@ -80,5 +102,11 @@ class HomepageActions extends sfActions
       'message' => $message,
       'template' => $template
     ]));
+  }
+
+  public function executeMpsResult(sfWebRequest $request){
+    $response = $request->getParameter('RES');
+    $msisdn = $request->getParameter('MOBILE');
+
   }
 }

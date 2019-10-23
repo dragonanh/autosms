@@ -1,3 +1,7 @@
 all:
   pattern_password: '/^\S*(?=\S{8,})(?=\S*\d)(?=\S*\W+)(?![.\n])(?=\S*[a-zA-Z])\S*$/'
   pattern_username: '/^([a-zA-Z])+([a-zA-Z0-9_]){5,29}$/'
+  ws_autosms:
+    url: http://171.244.9.242:8800/kkk
+    username: viettel
+    password: jsKk432Sw
