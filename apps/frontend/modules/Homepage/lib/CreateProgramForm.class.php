@@ -63,15 +63,25 @@ class CreateProgramForm extends sfForm
     $errorArr = array();
     if ($values['start_time'] != '' && $values['end_time'] != '') {
       if($this->validateDate($values['start_time']) && $this->validateDate($values['end_time'])){
+        $isLTNow = $this->compareTwoDate($values['end_time'], date('d-m-Y H:i:s'));
+        if($isLTNow){
+          $errorArr['end_time'] = new sfValidatorError($validator, 'Thời gian kết thúc phải lớn hơn thời gian hiện tại');
+        }elseif($this->compareTwoDate($values['end_time'], $values['start_time'])){
+          $errorArr['start_time'] = new sfValidatorError($validator, 'Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc');
+        }else{
+          $dt = new DateTime($values['start_time']);
+          $temp = $dt->modify('+ 8 hour')->format('d-m-Y H:i:s');
+          if(!$this->compareTwoDate($values['end_time'],$temp)){
+            $errorArr['start_time'] = new sfValidatorError($validator, 'Thời gian báo bận không quá 08h kể từ thời gian bắt đầu');
+          }
+        }
 
-
-        $errorArr['start_time'] = new sfValidatorError($validator, 'CMTND đã sử dụng quá số lượng sim được phép');
       }else{
-        if($this->validateDate($values['start_time'])){
+        if(!$this->validateDate($values['start_time'])){
           $errorArr['start_time'] = new sfValidatorError($validator, 'Thời gian bắt đầu không hợp lệ');
         }
 
-        if($this->validateDate($values['end_time'])){
+        if(!$this->validateDate($values['end_time'])){
           $errorArr['end_time'] = new sfValidatorError($validator, 'Thời gian kết thúc không hợp lệ');
         }
       }
@@ -81,6 +91,13 @@ class CreateProgramForm extends sfForm
       throw new sfValidatorErrorSchema($validator, $errorArr);
 
     return $values;
+  }
+
+  public function compareTwoDate($d1, $d2, $format = 'd-m-Y H:i:s'){
+    $date1 = DateTime::createFromFormat($format, $d1);
+    $date2 = DateTime::createFromFormat($format, $d2);
+
+    return $date1->format($format) < $date2->format($format);
   }
 
   public function validateDate($date, $format = 'd-m-Y H:i:s')

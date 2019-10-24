@@ -11,15 +11,7 @@
 class HomepageActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request){
-    $params = [
-      'SUB' => 'AUTOSMS_DAILY', 'CATE' => 'autosms', 'ITEM' => 'qrcode',
-      'SUB_CP' => 'ghd', 'CONT' => 'qrcode', 'PRICE' => 0,
-      'REQ' => '', 'PRO' => 'GHD', 'SER' => 'AutoSMS'
-    ];
-    $mps = new MpsWS();
-    $mpsUrl = $mps->getMpsChargeUrl($params);
-    var_dump($mpsUrl);die;
-    $this->redirect($mpsUrl);
+
   }
 
   public function executeCreate(sfWebRequest $request){
@@ -74,7 +66,7 @@ class HomepageActions extends sfActions
       $autoSms = new AutosmsWS();
       $startTime = date('YmdHis', strtotime($formValues['start_time']));
       $endTime = date('YmdHis', strtotime($formValues['end_time']));
-      $result =$autoSms->createSchedule($formValues['content'],$startTime, $endTime);
+      $result =$autoSms->createSchedule(removeSignClass::removeSignOnly($formValues['content']),$startTime, $endTime);
       if($result['errorCode'] == 0){
         $errorCode = 0;
         $message = 'Khởi tạo thành công';

@@ -23,30 +23,10 @@ class MpsWS
     $pub_key = file_get_contents($key_path.DIRECTORY_SEPARATOR.'PublicKeyVT.pem');
     $pri_key_cp = file_get_contents($key_path.DIRECTORY_SEPARATOR.'PrivateKeyCP.pem');
 
-    $pub_key = <<<EOD
------BEGIN PUBLIC KEY-----
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxsample==
------END PUBLIC KEY-----
-EOD;
-
-
-//key do viettel cung cap
-    $pri_key_cp = <<<EOD
------BEGIN RSA PRIVATE KEY-----
-aaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaa=
------END RSA PRIVATE KEY-----
-EOD;
-
     //CP thuc hienng h
     $transId = date('ymdHis').rand(10000,99999);
     $data = sprintf('SUB=%s&CATE=%s&ITEM=%s&SUB_CP=%s&CONT=%s&PRICE=%s&REQ=%s&SOURCE=WAP',
       $params['SUB'],$params['CATE'],$params['ITEM'],$params['SUB_CP'],$params['CONT'],$params['PRICE'],$transId);
-
-    $data = 'SUB=MEDIASTACK&CATE=VIDEO&ITEM=REGISTER&SUB_CP=KLEII&CONT=Noi&PRICE=1&REQ=011131212032423000&MOBILE=&SOURCE=WAP';
 
     $data = $this->pkcs5_pad($data, 16);
     //B1. Ma hoa du lieu bang AES
@@ -73,8 +53,7 @@ EOD;
 
   public function getMpsChargeUrl($params){
     list($dataEncrypt, $signature) = $this->encryptData($params);
-    $server = 'http://125.235.32.12/MPS/';
-    return $server.'charge.html?PRO=IWEB&CMD=DOWNLOAD&SER=IWEB&SUB=MEDIASTACK&DATA='.urlencode( $dataEncrypt).'&SIG='.$signature;
+    $server = sfConfig::get('app_mps_url');
     // điền các thông tin của dịch vụ
     return $server.'charge.html?PRO=GHD&CMD=DOWNLOAD&SER=AutoSMS&SUB=AUTOSMS_DAILY&DATA='.urlencode( $dataEncrypt).'&SIG='.$signature;
   }
