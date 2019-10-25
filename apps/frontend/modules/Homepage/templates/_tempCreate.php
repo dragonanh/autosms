@@ -10,3 +10,4 @@
     <button class="btn btn-secondary" type="reset">NHẬP LẠI</button>
   </div>
 </form>
+<div id="dtBox"></div>

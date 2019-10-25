@@ -100,6 +100,41 @@ class AutosmsWS
     return ['errorCode' => $errorCode, 'message' => $message, 'data' => $result];
   }
 
+  public function applySchedule($id, $isdn){
+    $result = null;
+    $data = sprintf('<?xml version="1.0"?>
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+<S:Body>
+ <moRequest xmlns="http://mtws/xsd">
+  <username>%s</username>
+  <password>%s</password>
+  <command>set_qr</command>
+        <qr_id>%s</qr_id>
+        <msisdn>%s</msisdn>
+ </moRequest>
+</S:Body>
+</S:Envelope>', $this->username, $this->password, $id, $isdn);
+
+    $response = $this->post_curl($data, 'applySchedule', 15);
+    if($response){
+      $doc = new DOMDocument;
+      $doc->loadXML($response);
+      $return = $doc->getElementsByTagName('return')->item(0)->nodeValue;
+      if($return == 0){
+          $errorCode = 0;
+          $message = 'success';
+      }else{
+        $errorCode = 500;
+        $message = 'Hệ thống bận Quý khách vui lòng thử lại sau';
+      }
+    }else{
+      $errorCode = 500;
+      $message = 'Hệ thống bận Quý khách vui lòng thử lại sau';
+    }
+
+    return ['errorCode' => $errorCode, 'message' => $message, 'data' => $result];
+  }
+
   protected function post_curl($_data, $functionName, $timeoutSecond = 0, $method = 'POST')
   {
     $logger = VtHelper::getLogger4Php("all");

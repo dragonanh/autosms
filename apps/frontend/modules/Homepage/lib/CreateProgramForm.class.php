@@ -19,11 +19,15 @@ class CreateProgramForm extends sfForm
       ]),
       'start_time' => new sfWidgetFormInputText([], [
         'style' => 'width:100%',
-        'placeholder' => 'Thời gian bắt đầu (VD: 31-07-2019 16:00:00)'
+        'placeholder' => 'Thời gian bắt đầu (VD: 31-07-2019 16:00:00)',
+        'data-field' => "datetime",
+        'readonly' => true
       ]),
       'end_time' => new sfWidgetFormInputText([], [
         'style' => 'width:100%;',
-        'placeholder' => 'Thời gian kết thúc (VD: 31-07-2019 16:30:00)'
+        'placeholder' => 'Thời gian kết thúc (VD: 31-07-2019 16:30:00)',
+        'data-field' => "datetime",
+        'readonly' => true
       ]),
     ]);
 

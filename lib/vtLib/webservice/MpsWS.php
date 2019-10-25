@@ -24,9 +24,9 @@ class MpsWS
     $pri_key_cp = file_get_contents($key_path.DIRECTORY_SEPARATOR.'PrivateKeyCP.pem');
 
     //CP thuc hienng h
-    $transId = date('ymdHis').rand(10000,99999);
+
     $data = sprintf('SUB=%s&CATE=%s&ITEM=%s&SUB_CP=%s&CONT=%s&PRICE=%s&REQ=%s&SOURCE=WAP',
-      $params['SUB'],$params['CATE'],$params['ITEM'],$params['SUB_CP'],$params['CONT'],$params['PRICE'],$transId);
+      $params['SUB'],$params['CATE'],$params['ITEM'],$params['SUB_CP'],$params['CONT'],$params['PRICE'],$params['REQ']);
 
     $data = $this->pkcs5_pad($data, 16);
     //B1. Ma hoa du lieu bang AES
