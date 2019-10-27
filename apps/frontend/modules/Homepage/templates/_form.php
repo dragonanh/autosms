@@ -1,4 +1,4 @@
-<div class="bg-success" style="width:25%; text-align: center;color: #FFF;">
+<div class="bg-success" style="width:25%; min-width: 240px; text-align: center;color: #FFF;">
   <p>Nội dung báo bận</p>
 </div>
 <br>
@@ -8,7 +8,7 @@
   <div class="field-error"><?php echo $form['content']->getError() ?></div>
 </div>
 <br>
-<div class="bg-success" style="width:25%;text-align: center;color: #FFF;">
+<div class="bg-success" style="width:25%;min-width: 240px;text-align: center;color: #FFF;">
   <p>Thời gian báo bận</p>
 </div>
 <br>

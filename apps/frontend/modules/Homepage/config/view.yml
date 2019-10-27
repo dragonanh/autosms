@@ -15,8 +15,8 @@ createSuccess:
   javascripts:
     - /datetimepicker/DateTimePicker.js
     - /datetimepicker/i18n/DateTimePicker-i18n.js
-    - datetimepicker.js?v=1.3
-    - main.js
+    - datetimepicker.js?v=1.4
+    - main.js?v=1
 detailSuccess:
   metas:
     title: Thông tin lịch gửi tin

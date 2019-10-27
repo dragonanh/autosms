@@ -1,3 +1,9 @@
+$(document).on('focus', 'input[type=text]', function () {
+  $(this).removeAttr('placeholder')
+}).on('blur', 'input[type=text]', function () {
+  $(this).attr('placeholder', $(this).attr('data-placeholder'))
+});
+
 var isSubmit = 0;
 $(document).on('submit', '#formCreateProgram', function (e) {
   e.preventDefault();
