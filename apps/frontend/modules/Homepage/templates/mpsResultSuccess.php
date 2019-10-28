@@ -10,16 +10,16 @@
     </div>
   </div>
   <div class="mocha-content" style="font-size:30px; line-height: 50px;font-family:Helve;">
-    <p style="text-align: center;"><b>Tài khoản của Quý khách không đủ để sử dụng lịch báo bận, Quý khách vui lòng
-        nạp tiền và đăng ký lại sau
-      </b>
-    </p><br>
+    <p style="text-align: center;"><b><?php echo $message ?></b></p>
+
+    <p class="text-center"><a class="btn btn-success" href="<?php echo url_for('@homepage') ?>">Về trang chủ</a> </p>
     <br>
     <br>
     <br>
     <br>
     <br>
-    <br><br>
+    <br>
+    <br>
     <br>
     <br>
     <br>

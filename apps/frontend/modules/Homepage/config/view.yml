@@ -10,9 +10,13 @@ createSuccess:
     title: Tạo lịch gửi tin
   stylesheets:
     - https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css: {integrity: sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T, crossorigin: anonymous}
+    - /datetimepicker/DateTimePicker.css
     - app2.css
   javascripts:
-    - main.js
+    - /datetimepicker/DateTimePicker.js
+    - /datetimepicker/i18n/DateTimePicker-i18n.js
+    - datetimepicker.js?v=1.4
+    - main.js?v=1
 detailSuccess:
   metas:
     title: Thông tin lịch gửi tin

@@ -11,15 +11,7 @@
 class HomepageActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request){
-    $params = [
-      'SUB' => 'AUTOSMS_DAILY', 'CATE' => 'autosms', 'ITEM' => 'qrcode',
-      'SUB_CP' => 'ghd', 'CONT' => 'qrcode', 'PRICE' => 0,
-      'REQ' => '', 'PRO' => 'GHD', 'SER' => 'AutoSMS'
-    ];
-    $mps = new MpsWS();
-    $mpsUrl = $mps->getMpsChargeUrl($params);
-    var_dump($mpsUrl);die;
-    $this->redirect($mpsUrl);
+
   }
 
   public function executeCreate(sfWebRequest $request){
@@ -47,13 +39,17 @@ class HomepageActions extends sfActions
       if($request->isMethod('post')){
         $token = $request->getParameter('token');
         if($token == $this->form->getCSRFToken()){
+          $transId = date('ymdHis').rand(10000,99999);
+          //luu id lich vao session
+          $this->getUser()->setAttribute(sprintf('autosms.transId.%s',$transId), $id);
           $params = [
             'SUB' => 'AUTOSMS_DAILY', 'CATE' => 'autosms', 'ITEM' => 'qrcode',
             'SUB_CP' => 'ghd', 'CONT' => 'qrcode', 'PRICE' => 0,
-            'REQ' => '', 'PRO' => 'GHD', 'SER' => 'AutoSMS'
+            'PRO' => 'GHD', 'SER' => 'AutoSMS', 'REQ' => $transId
           ];
           $mps = new MpsWS();
           $mpsUrl = $mps->getMpsChargeUrl($params);
+          $mpsUrl = $this->generateUrl('mpsResult', ['RES' => 0, 'MOBILE' => '0354926551', 'REQ' => $transId]);
           $this->redirect($mpsUrl);
         }
       }
@@ -74,7 +70,7 @@ class HomepageActions extends sfActions
       $autoSms = new AutosmsWS();
       $startTime = date('YmdHis', strtotime($formValues['start_time']));
       $endTime = date('YmdHis', strtotime($formValues['end_time']));
-      $result =$autoSms->createSchedule($formValues['content'],$startTime, $endTime);
+      $result =$autoSms->createSchedule(removeSignClass::removeSignOnly($formValues['content']),$startTime, $endTime);
       if($result['errorCode'] == 0){
         $errorCode = 0;
         $message = 'Khởi tạo thành công';
@@ -107,6 +103,29 @@ class HomepageActions extends sfActions
   public function executeMpsResult(sfWebRequest $request){
     $response = $request->getParameter('RES');
     $msisdn = $request->getParameter('MOBILE');
+    $transId = $request->getParameter('REQ');
+    $id = $this->getUser()->getAttribute(sprintf('autosms.transId.%s',$transId));
+    $this->getUser()->setAttribute(sprintf('autosms.transId.%s',$transId), null);
+    if(!$id) $this->redirect('homepage');
 
+    if($response == 0){
+      if($msisdn){
+        $isdn = VtHelper::getMobileNumber($msisdn, VtHelper::MOBILE_NOTPREFIX);
+        $autoSms = new AutosmsWS();
+        $result = $autoSms->applySchedule($id, $isdn);
+
+        if($result['errorCode'] == 0){
+          $message = 'Áp dụng lịch thành công';
+        }else{
+          $message = 'Áp dụng lịch thất bại';
+        }
+      }else{
+        $message = 'Không nhận diện được thuê bao, Quý khách vui lòng thử lại sau';
+      }
+    }else{
+      $message = 'Thanh toán không thành công, Quý khách vui lòng thử lại sau';
+    }
+
+    $this->message = $message;
   }
 }
