@@ -11,7 +11,9 @@
 class HomepageActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request){
-
+    $transId = $request->getParameter('REQ');
+    $url = $this->generateUrl('detailProgram', ['id' => 6, 'RES' => 0, 'MOBILE' => '0354926551', 'REQ' => $transId]);
+    $this->redirect($url);
   }
 
   public function executeCreate(sfWebRequest $request){
@@ -29,29 +31,63 @@ class HomepageActions extends sfActions
     $autoSms = new AutosmsWS();
     $detail = $autoSms->detailSchedule($id);
     if($detail['errorCode'] == 0){
-      $this->error = null;
-      $schedule = $detail['data'];
-      $schedule['start_time'] = date('d-m-Y H:i:s', strtotime($schedule['start_time']));
-      $schedule['end_time'] = date('d-m-Y H:i:s', strtotime($schedule['end_time']));
-      $this->form = new CreateProgramForm(null, ['schedule' => $schedule]);
-      $this->id = $id;
 
-      if($request->isMethod('post')){
-        $token = $request->getParameter('token');
-        if($token == $this->form->getCSRFToken()){
-          $transId = date('ymdHis').rand(10000,99999);
-          //luu id lich vao session
-          $this->getUser()->setAttribute(sprintf('autosms.transId.%s',$transId), $id);
-          $params = [
-            'SUB' => 'AUTOSMS_DAILY', 'CATE' => 'autosms', 'ITEM' => 'qrcode',
-            'SUB_CP' => 'ghd', 'CONT' => 'qrcode', 'PRICE' => 0,
-            'PRO' => 'GHD', 'SER' => 'AutoSMS', 'REQ' => $transId
-          ];
-          $mps = new MpsWS();
-          $mpsUrl = $mps->getMpsChargeUrl($params);
-          $mpsUrl = $this->generateUrl('mpsResult', ['RES' => 0, 'MOBILE' => '0354926551', 'REQ' => $transId]);
-          $this->redirect($mpsUrl);
+      $transId = date('ymdHis').rand(10000,99999);
+      $params = [
+        'SUB' => 'AUTOSMS_DAILY', 'CATE' => 'autosms', 'ITEM' => 'qrcode',
+        'SUB_CP' => 'ghd', 'CONT' => 'qrcode', 'PRICE' => 0,
+        'PRO' => 'GHD', 'SER' => 'AutoSMS', 'REQ' => $transId
+      ];
+
+      $req = $request->getParameter('REQ');
+      if(!$req) {
+        //truong hop chua nhan dien so dien thoai
+        //redirect sang mps de nhan dien so dien thoai
+        $mps = new MpsWS();
+        $urlRedirect = $mps->getMpsUrl($params, MpsWS::MOBILE);
+        $this->redirect($urlRedirect);
+      }
+
+      $this->error = null;
+      if(($msisdn = $request->getParameter('MOBILE'))) {
+        $isSub = false;
+        //kiem tra thue bao co phai la sub ko
+        if( strpos( 'x', $msisdn ) === false) {
+          $isSub = true;
         }
+
+        $schedule = $detail['data'];
+        $schedule['start_time'] = date('d-m-Y H:i:s', strtotime($schedule['start_time']));
+        $schedule['end_time'] = date('d-m-Y H:i:s', strtotime($schedule['end_time']));
+        $this->form = new CreateProgramForm(null, ['schedule' => $schedule]);
+        $this->id = $id;
+
+        if ($request->isMethod('post')) {
+          $token = $request->getParameter('token');
+          if ($token == $this->form->getCSRFToken()) {
+            if($isSub){
+              //truong hop la sub --> thuc hien dang ky luon
+              $autoSms = new AutosmsWS();
+              $result = $autoSms->applySchedule($id, $msisdn);
+
+              if($result['errorCode'] == 0){
+                $message = 'Áp dụng lịch thành công';
+              }else{
+                $message = 'Áp dụng lịch thất bại';
+              }
+            }else {
+              //luu id lich vao session
+              $this->getUser()->setAttribute(sprintf('autosms.transId.%s',$transId), $id);
+
+              //truong hop khong phai la sub se redirect sang mps de tru tien
+              $mpsUrl = $mps->getMpsUrl($params);
+              $mpsUrl = $this->generateUrl('mpsResult', ['RES' => 0, 'MOBILE' => '0354926551', 'REQ' => $transId]);
+              $this->redirect($mpsUrl);
+            }
+          }
+        }
+      }else{
+        $this->error = 'Hệ thống không nhận diện được số điện thoại';
       }
     }else{
       $this->error = $detail['message'];
@@ -110,9 +146,8 @@ class HomepageActions extends sfActions
 
     if($response == 0){
       if($msisdn){
-        $isdn = VtHelper::getMobileNumber($msisdn, VtHelper::MOBILE_NOTPREFIX);
         $autoSms = new AutosmsWS();
-        $result = $autoSms->applySchedule($id, $isdn);
+        $result = $autoSms->applySchedule($id, $msisdn);
 
         if($result['errorCode'] == 0){
           $message = 'Áp dụng lịch thành công';

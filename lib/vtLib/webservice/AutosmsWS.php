@@ -101,6 +101,7 @@ class AutosmsWS
   }
 
   public function applySchedule($id, $isdn){
+    $isdn = VtHelper::getMobileNumber($isdn, VtHelper::MOBILE_NOTPREFIX);
     $result = null;
     $data = sprintf('<?xml version="1.0"?>
 <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
