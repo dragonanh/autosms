@@ -18,45 +18,36 @@ class VtHelper {
     const SALT = 'whateveryouwant';
     const MY_PBKDF2_SALT = "\x2d\xb7\x68\x1a\x28\x15\xbe\x06\x33\xa0\x7e\x0e\x8f\x79\xd5\xdf";
     public static function getMobileNumber($msisdn, $type, $trim = true) {
-        if (empty($type)) {
-            $type = self::MOBILE_SIMPLE;
-        }
+      if (empty($type))
+        $type = self::MOBILE_SIMPLE;
 
-        if ($trim) {
-            $msisdn = trim($msisdn);
-        }
-        //loai bo so + dau tien doi voi dinh dang +84
-        if ($msisdn[0] == '+') {
-            $msisdn = substr($msisdn, 1);
-        }
-        switch ($type) {
-            case self::MOBILE_GLOBAL:
-                if ($msisdn[0] == '0') {
-                    return '84' . substr($msisdn, 1);
-                } else if ($msisdn[0] . $msisdn[1] != '84') {
-                    return '84' . $msisdn;
-                } else {
-                    return $msisdn;
-                }
-                break;
-            case self::MOBILE_SIMPLE:
-                if ($msisdn[0] . $msisdn[1] == '84')
-                    return '0' . substr($msisdn, 2);
-                else if ($msisdn[0] != '0')
-                    return '0' . $msisdn;
-                else
-                    return $msisdn;
-                break;
-            case self::MOBILE_NOTPREFIX:
-                if ($msisdn[0] == '0') {
-                    return substr($msisdn, 1);
-                } elseif (strlen($msisdn) >=2 && $msisdn[0] . $msisdn[1] == '84') {
-                    return substr($msisdn, 2);
-                } else {
-                    return $msisdn;
-                }
-                break;
-        }
+      if ($trim)
+        $msisdn = trim($msisdn);
+
+      if (!$msisdn)
+        return '';
+
+      //loai bo so + dau tien doi voi dinh dang +84
+      if ($msisdn[0] == '+') {
+        $msisdn = substr($msisdn, 1);
+      }
+
+      if ($msisdn[0] == '0') {
+        $msisdn = substr($msisdn, 1);
+      } else if ($msisdn[0] . $msisdn[1] == '84' && strlen($msisdn) >= 11) {
+        $msisdn = substr($msisdn, 2);
+      }
+
+      switch ($type) {
+        case self::MOBILE_GLOBAL:
+          return '84'.$msisdn;
+        case self::MOBILE_SIMPLE:
+          return '0'.$msisdn;
+        case self::MOBILE_NOTPREFIX:
+          return $msisdn;
+        default:
+          return '';
+      }
     }
 
     public static function truncate($text, $length = 30, $truncateString = '...', $truncateLastspace = true, $escSpecialChars = false) {

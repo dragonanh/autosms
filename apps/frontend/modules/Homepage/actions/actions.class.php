@@ -11,9 +11,7 @@
 class HomepageActions extends sfActions
 {
   public function executeIndex(sfWebRequest $request){
-    $transId = $request->getParameter('REQ');
-    $url = $this->generateUrl('detailProgram', ['id' => 6, 'RES' => 0, 'MOBILE' => '0354926551', 'REQ' => $transId]);
-    $this->redirect($url);
+
   }
 
   public function executeCreate(sfWebRequest $request){
