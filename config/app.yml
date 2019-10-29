@@ -3,6 +3,6 @@ all:
   pattern_username: '/^([a-zA-Z])+([a-zA-Z0-9_]){5,29}$/'
   mps_url: 'http://125.235.4.194/test/'
   ws_autosms:
-    url: http://171.244.9.242:8800/kkk
+    url: http://171.244.9.242:8280/kkk
     username: viettel
     password: jsKk432Sw

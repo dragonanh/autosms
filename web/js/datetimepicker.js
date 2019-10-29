@@ -1,6 +1,11 @@
 $(document).ready(function()
 {
 
+  initDatetimepicker();
+
+});
+
+function initDatetimepicker() {
   $("#dtBox").DateTimePicker({
     dateTimeFormat: 'dd-MM-yyyy HH:mm:ss',
     // shortDayNames: ["Chủ nhật", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7"]
@@ -8,5 +13,4 @@ $(document).ready(function()
     setButtonContent: 'Lưu',
     clearButtonContent: 'Xoá'
   });
-
-});
+}

@@ -125,7 +125,9 @@ class HomepageActions extends sfActions
             $this->redirect($mpsUrl);
           }
         }else{
-          $this->error = 'Dữ liệu không hợp lệ';
+          $message = 'Dữ liệu không hợp lệ';
+          $this->getUser()->setFlash('error', $message);
+          $this->redirect('detailProgram', ['id' => $id]);
         }
       }
     }else{
