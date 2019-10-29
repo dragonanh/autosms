@@ -1,6 +1,7 @@
 <div id="body">
   <div class="mocha-content" style="font-size:30px; line-height: 50px;font-family:Helve;">
       <?php if(empty($error)): ?>
+          <?php include_partial('flashes') ?>
           <form method="post" action="">
               <input type="hidden" name="id" value="<?php echo $id ?>">
               <input type="hidden" name="token" value="<?php echo $form->getCSRFToken() ?>">

@@ -7,6 +7,9 @@ createProgram:
 detailProgram:
   url: /chi-tiet/:id
   param: { module: Homepage, action: detail}
+mpsProcess:
+  url: /mpsProcess
+  param: { module: Homepage, action: mpsProcess}
 mpsResult:
   url: /mpsResult
   param: { module: Homepage, action: mpsResult}

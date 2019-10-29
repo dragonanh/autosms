@@ -18,6 +18,51 @@ class HomepageActions extends sfActions
     $this->form = new CreateProgramForm();
   }
 
+  public function executeMpsProcess(sfWebRequest $request){
+    $transId = date('ymdHis').rand(10000,99999);
+    $params = [
+      'SUB' => 'AUTOSMS_DAILY', 'CATE' => 'autosms', 'ITEM' => 'qrcode',
+      'SUB_CP' => 'ghd', 'CONT' => 'qrcode', 'PRICE' => 0,
+      'PRO' => 'GHD', 'SER' => 'AutoSMS', 'REQ' => $transId
+    ];
+
+    $mps = new MpsWS();
+    $dataResponse = $request->getParameter('DATA');
+    $sign = $request->getParameter('SIG');
+    if(!$dataResponse) {
+      //truong hop chua nhan dien so dien thoai
+      //redirect sang mps de nhan dien so dien thoai
+      $urlRedirect = $mps->getMpsUrl($params, MpsWS::MOBILE);
+      $this->redirect($urlRedirect);
+    }
+
+    $id = $request->getParameter('id');
+    if($dataResponse && $sign) {
+      //giai ma du lieu tra ve tu mps
+      $dataDecrypt = $mps->decryptData($dataResponse, $sign);
+      if (!empty($dataDecrypt['MOBILE'])) {
+        $msisdn = $dataDecrypt['MOBILE'];
+        $isSub = false;
+        //truong hop nhan dien duoc thue bao
+        //kiem tra thue bao co phai la sub ko
+        if (strpos('x', $msisdn) === false) {
+          $isSub = true;
+        }
+
+        //luu thong tin nhan dien vao session
+        $this->getUser()->setAttribute('autosms.detectMobile', [
+          'msisdn' => $msisdn,
+          'isSub' => $isSub
+        ]);
+        $url = $this->generateUrl('detailProgram', ['id' => $id]);
+        $this->redirect($url);
+      }
+    }
+
+    $this->message = 'Không nhận diện được thuê bao';
+
+  }
+
   public function executeDetail(sfWebRequest $request){
     $id = $request->getParameter('id');
 
@@ -30,62 +75,58 @@ class HomepageActions extends sfActions
     $detail = $autoSms->detailSchedule($id);
     if($detail['errorCode'] == 0){
 
-      $transId = date('ymdHis').rand(10000,99999);
-      $params = [
-        'SUB' => 'AUTOSMS_DAILY', 'CATE' => 'autosms', 'ITEM' => 'qrcode',
-        'SUB_CP' => 'ghd', 'CONT' => 'qrcode', 'PRICE' => 0,
-        'PRO' => 'GHD', 'SER' => 'AutoSMS', 'REQ' => $transId
-      ];
-
-      $req = $request->getParameter('REQ');
-      if(!$req) {
-        //truong hop chua nhan dien so dien thoai
-        //redirect sang mps de nhan dien so dien thoai
-        $mps = new MpsWS();
-        $urlRedirect = $mps->getMpsUrl($params, MpsWS::MOBILE);
-        $this->redirect($urlRedirect);
+      $mobileInfo = $this->getUser()->getAttribute('autosms.detectMobile');
+      if(empty($mobileInfo) && (!$this->getUser()->hasFlash('error') && !$this->getUser()->hasFlash('success'))){
+        //truong hop khong co thong tin so dien thoai trong session
+        //thuc hien redirect sang mps de nhan dien
+        $url = $this->generateUrl('mpsProcess', ['id' => $id]);
+        $this->redirect($url);
       }
 
       $this->error = null;
-      if(($msisdn = $request->getParameter('MOBILE'))) {
-        $isSub = false;
-        //kiem tra thue bao co phai la sub ko
-        if( strpos( 'x', $msisdn ) === false) {
-          $isSub = true;
-        }
 
-        $schedule = $detail['data'];
-        $schedule['start_time'] = date('d-m-Y H:i:s', strtotime($schedule['start_time']));
-        $schedule['end_time'] = date('d-m-Y H:i:s', strtotime($schedule['end_time']));
-        $this->form = new CreateProgramForm(null, ['schedule' => $schedule]);
-        $this->id = $id;
+      $schedule = $detail['data'];
+      $schedule['start_time'] = date('d-m-Y H:i:s', strtotime($schedule['start_time']));
+      $schedule['end_time'] = date('d-m-Y H:i:s', strtotime($schedule['end_time']));
+      $this->form = new CreateProgramForm(null, ['schedule' => $schedule]);
+      $this->id = $id;
 
-        if ($request->isMethod('post')) {
-          $token = $request->getParameter('token');
-          if ($token == $this->form->getCSRFToken()) {
-            if($isSub){
-              //truong hop la sub --> thuc hien dang ky luon
-              $autoSms = new AutosmsWS();
-              $result = $autoSms->applySchedule($id, $msisdn);
+      if ($request->isMethod('post')) {
+        $token = $request->getParameter('token');
+        if ($token == $this->form->getCSRFToken()) {
+          $msisdn = $mobileInfo['msisdn'];
+          $isSub = $mobileInfo['isSub'];
+          if ($isSub) {
+            //truong hop la sub --> thuc hien dang ky luon
+            $autoSms = new AutosmsWS();
+            $result = $autoSms->applySchedule($id, $msisdn);
 
-              if($result['errorCode'] == 0){
-                $message = 'Áp dụng lịch thành công';
-              }else{
-                $message = 'Áp dụng lịch thất bại';
-              }
-            }else {
-              //luu id lich vao session
-              $this->getUser()->setAttribute(sprintf('autosms.transId.%s',$transId), $id);
-
-              //truong hop khong phai la sub se redirect sang mps de tru tien
-              $mpsUrl = $mps->getMpsUrl($params);
-              $mpsUrl = $this->generateUrl('mpsResult', ['RES' => 0, 'MOBILE' => '0354926551', 'REQ' => $transId]);
-              $this->redirect($mpsUrl);
+            if ($result['errorCode'] == 0) {
+              $message = 'Áp dụng lịch thành công';
+              $this->getUser()->setFlash('success', $message);
+            } else {
+              $message = 'Áp dụng lịch thất bại';
+              $this->getUser()->setFlash('error', $message);
             }
+            $this->redirect('detailProgram', ['id' => $id]);
+          } else {
+            $transId = date('ymdHis').rand(10000,99999);
+            //luu id lich vao session
+            $this->getUser()->setAttribute(sprintf('autosms.transId.%s', $transId), $id);
+
+            //truong hop khong phai la sub se redirect sang mps de tru tien
+            $mps = new MpsWS();
+            $params = [
+              'SUB' => 'AUTOSMS_DAILY', 'CATE' => 'autosms', 'ITEM' => 'qrcode',
+              'SUB_CP' => 'ghd', 'CONT' => 'qrcode', 'PRICE' => 0,
+              'PRO' => 'GHD', 'SER' => 'AutoSMS', 'REQ' => $transId
+            ];
+            $mpsUrl = $mps->getMpsUrl($params, MpsWS::CHARGE);
+            $this->redirect($mpsUrl);
           }
+        }else{
+          $this->error = 'Dữ liệu không hợp lệ';
         }
-      }else{
-        $this->error = 'Hệ thống không nhận diện được số điện thoại';
       }
     }else{
       $this->error = $detail['message'];
@@ -135,9 +176,19 @@ class HomepageActions extends sfActions
   }
 
   public function executeMpsResult(sfWebRequest $request){
-    $response = $request->getParameter('RES');
-    $msisdn = $request->getParameter('MOBILE');
-    $transId = $request->getParameter('REQ');
+
+    $dataResponse = $request->getParameter('DATA');
+    $sign = $request->getParameter('SIG');
+    if(!$dataResponse || !$sign){
+      $this->redirect('homepage');
+    }
+
+    $mps = new MpsWS();
+    $dataDecrypt = $mps->decryptData($dataResponse, $sign);
+    $response = $dataDecrypt['RES'];
+    $transId = $dataDecrypt['REQ'];
+    $msisdn = $dataDecrypt['MOBILE'];
+
     $id = $this->getUser()->getAttribute(sprintf('autosms.transId.%s',$transId));
     $this->getUser()->setAttribute(sprintf('autosms.transId.%s',$transId), null);
     if(!$id) $this->redirect('homepage');

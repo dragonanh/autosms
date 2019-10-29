@@ -63,7 +63,7 @@ class MpsWS
     $key_path = sfConfig::get('sf_root_dir').DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR.'key';
     $pub_key_cp = file_get_contents($key_path.DIRECTORY_SEPARATOR.'PublicKeyVT.pem');
     $pri_key_cp = file_get_contents($key_path.DIRECTORY_SEPARATOR.'PrivateKeyCP.pem');
-
+    $result = [];
     $verify = openssl_verify (($data_encrypted) , base64_decode(str_replace(' ', '+',urldecode($signature))) , $pub_key_cp, OPENSSL_ALGO_SHA1);
     if($verify) {
       //B6. Giai ma du lieu bang private key
@@ -73,7 +73,9 @@ class MpsWS
 
       //B7. Giai ma du lieu bang AES
       $value_decrypt = $this->decrypt(str_replace(' ', '+', $arr['VALUE']), $arr['KEY']);
+      parse_str($value_decrypt, $result);
     }
+    return $result;
   }
 
   public function getMpsUrl($params, $type){

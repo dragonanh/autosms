@@ -24,3 +24,8 @@
   <br>- Kết thúc thời gian báo bận theo thông số đã tạo, hệ thống sẽ tự động hủy hiệu lực của gói báo bận và thông báo cho Thuê bao đã sử dụng qua tin nhắn từ đầu số của dịch vụ.
 
 </div>
+
+<br>
+<div class="text-center">
+    <a class="btn btn-success" href="<?php echo url_for('@createProgram') ?>">TẠO LỊCH MỚI</a>
+</div>
