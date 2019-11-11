@@ -87,7 +87,7 @@ class HomepageActions extends sfActions
             $params = [
               'SUB' => 'AUTOSMS_DAILY', 'CATE' => 'autosms', 'ITEM' => 'qrcode',
               'SUB_CP' => 'ghd', 'CONT' => 'qrcode', 'PRICE' => 0,
-              'PRO' => 'GHD', 'SER' => 'AutoSMS', 'REQ' => $transId
+              'PRO' => 'GHD', 'SER' => 'AutoSMS', 'REQ' => $transId, 'MOBILE' => $msisdn
             ];
             $mpsUrl = $mps->getMpsUrl($params, MpsWS::CHARGE);
             $logger->info(sprintf("[executeDetail] %s|NOT SUB - REDIRECT MPS URL CHARGE: %s|mobile: %s", $id, $mpsUrl, $msisdn));
@@ -155,6 +155,7 @@ class HomepageActions extends sfActions
     }
 
     $logger->info(sprintf("=========== BEGIN MPS RESULT =============="));
+    $logger->info('[executeMpsResult] request: '.json_encode($request->getGetParameters()));
     $mps = new MpsWS();
     $dataDecrypt = $mps->decryptData($dataResponse, $sign);
     $logger->info(sprintf("[executeMpsResult] DECRYPT SUCCESS|data: %s", json_encode($dataDecrypt)));
@@ -186,7 +187,7 @@ class HomepageActions extends sfActions
           $message = 'Không nhận diện được thuê bao, Quý khách vui lòng thử lại sau';
         }
       } else {
-        $message = 'Thanh toán không thành công, Quý khách vui lòng thử lại sau';
+        $message = $mps->getMessageByErrorCode($response);
       }
     }else{
       $id = $this->getUser()->getAttribute(sprintf('autosms.detect.transId.%s',$transId));

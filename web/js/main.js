@@ -25,7 +25,7 @@ function createProgram(obj) {
         isSubmit = 0;
         obj.removeClass('btn-disabled');
         $('#loading').remove();
-        $('.mocha-content').html(response.template);
+        $('.section-create').html(response.template);
         initDatetimepicker();
       },
       error: function (request, status, err) {

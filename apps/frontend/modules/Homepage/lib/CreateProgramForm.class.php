@@ -13,20 +13,20 @@ class CreateProgramForm extends sfForm
   public function configure()
   {
     $this->setWidgets([
-      'content' => new sfWidgetFormInputText([], [
-        'style' => 'width:100%',
-        'placeholder' => 'VD: Tôi đang họp liên lạc với tôi sau 16h',
-        'data-placeholder' => 'VD: Tôi đang họp liên lạc với tôi sau 16h'
+      'content' => new sfWidgetFormTextarea([], [
+        'class' => 'form-control border-success',
+//        'placeholder' => 'VD: Tôi đang họp liên lạc với tôi sau 16h',
+//        'data-placeholder' => 'VD: Tôi đang họp liên lạc với tôi sau 16h'
       ]),
       'start_time' => new sfWidgetFormInputText([], [
-        'style' => 'width:100%',
+        'class' => 'form-control',
         'placeholder' => 'Thời gian bắt đầu',
         'data-placeholder' => 'Thời gian bắt đầu',
         'data-field' => "datetime",
         'readonly' => true
       ]),
       'end_time' => new sfWidgetFormInputText([], [
-        'style' => 'width:100%;',
+        'class' => 'form-control',
         'placeholder' => 'Thời gian kết thúc',
         'data-placeholder' => 'Thời gian kết thúc',
         'data-field' => "datetime",
@@ -104,7 +104,7 @@ class CreateProgramForm extends sfForm
     $date1 = DateTime::createFromFormat($format, $d1);
     $date2 = DateTime::createFromFormat($format, $d2);
 
-    return $date1->format($format) < $date2->format($format);
+    return strtotime($date1->format($format)) < strtotime($date2->format($format));
   }
 
   public function validateDate($date, $format = 'd-m-Y H:i:s')
