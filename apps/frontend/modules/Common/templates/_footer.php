@@ -1,7 +1,7 @@
 <footer style="width:100%;">
     <p class="pagetop"><a href="#vn" class='over'><i class="fa fa-angle-up" aria-hidden="true"></i></a></p>
     <div class="container" id="footers" style="padding-left: 20px;">
-        <p class="logo"><a href="#zzz"><img style="width: 165px;" src="/images/common/favicon.ico" alt="growth honesty different"></a></p>
+        <p class="logo"><a href="<?php echo url_for('@homepage') ?>"><img style="width: 165px;" src="/images/common/favicon.ico" alt="growth honesty different"></a></p>
         <div class="box_infor" style="padding-top: 36px;">
             <p class="address" style="width: 400px;">
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
@@ -24,10 +24,6 @@
     </div><!-- /.fixbtns -->
     <div class="box_menu">
         <div class="box_top_fix">
-            <ul class="lang">
-                <li><a href="javascript: void(0);" class="over lang_en" target="_blank"><img src="/images/common/ic_uk.jpg" alt=""></a></li>
-                <li><a href="javascript: void(0);" class="over lang_vn" target="_blank"><img src="/images/common/ic_vn.jpg" alt=""></a></li>
-            </ul>
             <div class="form_search">
                 <input type="text" placeholder="Search...">
                 <div class="search"></div>
@@ -35,7 +31,7 @@
         </div>
         <div class="fixnav_menu">
             <ul>
-                <li><a href="#intro">TRANG CHỦ</a></li>
+                <li><a href="<?php echo url_for('@homepage') ?>">TRANG CHỦ</a></li>
                 <li><a href="#price">HỎI & ĐÁP</a></li>
                 <li><a href="#contact">LIÊN HỆ</a></li>
             </ul>

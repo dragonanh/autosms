@@ -1,7 +1,7 @@
 <header>
     <nav class="fixnav-sp view_sp">
         <div class="inner">
-            <p class="logo"><a href="#zzz"><img src="images/common/favicon.ico" alt=""><span>AutoSMS </span></a></p>
+            <p class="logo"><a href="<?php echo url_for('@homepage') ?>"><img src="/images/common/favicon.ico" alt=""><span>AutoSMS </span></a></p>
             <p class="obj_menuBtn menuopen"><a href="javascript: void(0);"><i class="fa fa-bars" aria-hidden="true"></i></a></p>
         </div>
     </nav><!-- /#fixnav-sp -->
@@ -20,9 +20,9 @@
         <div class="header-main view_pc-tab">
             <div class="container">
                 <div class="menu_global">
-                    <h1 class="logo"><a href="#zzz" class="over"><img style="width: 90px;" src="images/common/favicon.ico" alt="Báo bận thông minh"><span>AutoSMS</span></a></h1>
+                    <h1 class="logo"><a href="<?php echo url_for('@homepage') ?>" class="over"><img style="width: 90px;" src="/images/common/favicon.ico" alt="Báo bận thông minh"><span>AutoSMS</span></a></h1>
                     <ul class="nav_global">
-                        <li><a href="#intro">TRANG CHỦ</a></li>
+                        <li><a href="<?php echo url_for('@homepage') ?>">TRANG CHỦ</a></li>
                         <li><a href="#price">HỎI & ĐÁP</a></li>
                         <li><a href="#contact">LIÊN HỆ</a></li>
                         <li class="form_search">
@@ -39,9 +39,13 @@
                     <p class="txt" style="width:400PX;" >Dịch vụ AutoSMS – Tự động gửi tin nhắn báo bận</p>
                     <h2>Báo bận thông minh</h2>
                     <p class="txt">Người bạn đồng hành với điện thoại của bạn</p>
-                    <p style="width:257px;" class="btn"><a href="<?php echo url_for('@createProgram') ?>">Tạo lịch báo bận <i class="ic"><img src="images/common/ic_arrow.png" alt=""></i></a></p>
+                  <?php if(has_slot('homepage')): ?>
+                    <p style="width:257px;" class="btn"><a href="<?php echo url_for('@createProgram') ?>">Tạo lịch báo bận <i class="ic"><img src="/images/common/ic_arrow.png" alt=""></i></a></p>
+                  <?php endif ?>
                 </div>
-                <p class="img"><img src="images/home/img_main-pc.png" alt="" class="view_pc-tab"><img src="images/home/img_main-sp.png" alt="" class="view_sp"></p>
+                <p class="img"><img src="/images/home/img_main-pc.png" alt="" class="view_pc-tab">
+                    <img src="/images/home/img_main-sp.png" alt="" class="view_sp"></p>
+
             </div>
         </div>
     </div>

@@ -127,7 +127,7 @@ class HomepageActions extends sfActions
         $qrcode = new ProcessQrCode($content);
         $qrCodeImg = $qrcode->writeDataUri();
 
-        $template = $this->getPartial('Homepage/tempSuccess', ['form' => $form, 'qrCodeImg' => $qrCodeImg]);
+        $template = $this->getPartial('Homepage/tempSuccess', ['form' => $form, 'qrCodeImg' => $qrCodeImg, 'id' => $id]);
       }else{
         $errorCode = 2;
         $message = 'Khởi tạo thất bại';
@@ -224,5 +224,30 @@ class HomepageActions extends sfActions
 
     $this->errorCode = $errorCode;
     $this->message = $message;
+  }
+
+  public function executeDownload(sfWebRequest $request){
+    $id = $request->getParameter('id');
+    $filePath = sfConfig::get('sf_log_dir').'/qrcode.png';
+    $content = $this->generateUrl('detailProgram', ['id' => $id], true);
+    $qrcode = new ProcessQrCode($content);
+    $qrcode->writeFile($filePath);
+
+    if(!file_exists($filePath)){ // file does not exist
+      die('file not found');
+    } else {
+      $fp = fopen($filePath, 'rb');
+      header('Content-Type: "application/octet-stream"');
+      header('Content-Disposition: attachment; filename="autosms_qrcode.png"');
+      header("Content-Transfer-Encoding: binary");
+      header('Expires: 0');
+      header('Pragma: no-cache');
+      header("Content-Length: ".filesize($filePath));
+
+      // read the file from disk
+      fpassthru($fp);
+      fclose($fp);
+      exit();
+    }
   }
 }

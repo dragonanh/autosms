@@ -1,3 +1,5 @@
+<?php slot('homepage');  end_slot() ?>
+
 <div id="content">
     <!-- box intro -->
 

@@ -23,6 +23,9 @@
                 <img style="margin: 0 auto; text-align: center; height: 200px" id="qrcode_image" src="<?php echo $qrCodeImg ?>" alt="">
             </div>
 
+            <div class="text-center">
+                <a href="<?php echo url_for('downloadQrcode', ['id' => $id]) ?>"> Tải QRCode </a>
+            </div>
             <div class="txt" style="text-align: center;">
                 Hướng dẫn sử dụng QR Code để chia sẻ lịch báo bận của Quý khách:
             </div>
@@ -53,7 +56,7 @@
             </div>
 
             <div class="text-center">
-                <a class="btn btn-success" href="<?php echo url_for('@createProgram') ?>">TẠO LỊCH MỚI</a>
+                <a class="btn btn-success" href="<?php echo url_for('@createProgram') ?>" style="text-decoration: none">TẠO LỊCH MỚI</a>
             </div>
         </div>
     </div>

@@ -10,6 +10,9 @@ detailProgram:
 mpsResult:
   url: /mpsResult
   param: { module: Homepage, action: mpsResult}
+downloadQrcode:
+  url: /download-qrcode/:id
+  param: { module: Homepage, action: download}
 
 ####################################### AJAX ########################################
 ajaxCreateProgram:

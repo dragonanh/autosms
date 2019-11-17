@@ -26,4 +26,10 @@ class ProcessQrCode
   public function writeDataUri(){
     return $this->qrCode->writeDataUri();
   }
+
+  public function writeFile($filePath){
+    return $this->qrCode->writeFile($filePath);
+  }
+
+
 }
