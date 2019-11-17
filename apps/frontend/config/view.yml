@@ -14,6 +14,15 @@ default:
     #robots:       index, follow
 
   stylesheets:
-    - https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css
+    - font-awesome.min.css
+    - https://fonts.googleapis.com/css?family=Open+Sans|Roboto
+    - bootstrap.min.css
+    - slick.css
+    - default.css
+    - common.css
+    - homepage.css
+  javascripts:
+    - slick.min.js
+    - common.js
   has_layout:     true
   layout:         layout

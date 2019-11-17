@@ -19,7 +19,7 @@ ajaxCreateProgram:
 
 homepage:
   url:   /
-  param: { module: Homepage, action: create }
+  param: { module: Homepage, action: index }
 
 # generic rules
 # please, remove them by adding more specific rules

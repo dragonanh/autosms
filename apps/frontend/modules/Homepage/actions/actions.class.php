@@ -55,7 +55,7 @@ class HomepageActions extends sfActions
       $schedule = $detail['data'];
       $schedule['start_time'] = date('d-m-Y H:i:s', strtotime($schedule['start_time']));
       $schedule['end_time'] = date('d-m-Y H:i:s', strtotime($schedule['end_time']));
-      $this->form = new CreateProgramForm(null, ['schedule' => $schedule]);
+      $this->form = new CreateProgramForm(null, ['schedule' => $schedule, 'page' => 'detail']);
       $this->id = $id;
 
       if ($request->isMethod('post')) {
@@ -85,7 +85,7 @@ class HomepageActions extends sfActions
             //truong hop khong phai la sub se redirect sang mps de tru tien
             $mps = new MpsWS();
             $params = [
-              'SUB' => 'AUTOSMS_DAILY', 'CATE' => 'autosms', 'ITEM' => 'qrcode',
+              'SUB' => 'AUTOSMS_DAILY', 'CATE' => '', 'ITEM' => 'qrcode',
               'SUB_CP' => 'ghd', 'CONT' => 'qrcode', 'PRICE' => 0,
               'PRO' => 'GHD', 'SER' => 'AutoSMS', 'REQ' => $transId, 'MOBILE' => $msisdn
             ];
@@ -163,6 +163,8 @@ class HomepageActions extends sfActions
     $transId = $dataDecrypt['REQ'];
     $cmd = $dataDecrypt['CMD'];
     $msisdn = $dataDecrypt['MOBILE'];
+    $errorCode = 1;
+    $this->schedule = null;
 
     if($cmd == 'DOWNLOAD') {
       $id = $this->getUser()->getAttribute(sprintf('autosms.transId.%s',$transId));
@@ -180,6 +182,11 @@ class HomepageActions extends sfActions
           $logger->info(sprintf("[executeMpsResult] CMD=DOWNLOAD|APPLY SCHEDULE| data: %s|id: %s|result: %s", json_encode($dataDecrypt), $id, json_encode($result)));
           if ($result['errorCode'] == 0) {
             $message = 'Áp dụng lịch thành công';
+            $errorCode = 0;
+            $detail = $autoSms->detailSchedule($id);
+            if($detail['errorCode'] == 0){
+              $this->schedule = $detail['data'];
+            }
           } else {
             $message = 'Áp dụng lịch thất bại';
           }
@@ -215,6 +222,7 @@ class HomepageActions extends sfActions
       }
     }
 
+    $this->errorCode = $errorCode;
     $this->message = $message;
   }
 }

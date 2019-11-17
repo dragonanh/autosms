@@ -21,13 +21,10 @@
 </head>
 
 <body>
-    <div class="container" style="text-align: center;">
-
-        <div class="card border-success">
-            <img class="card-img-top" src="/images/banner1.png" alt="Card image cap">
-            <?php echo $sf_content ?>
-        </div>
-
+    <div id="vn">
+        <?php include_partial('Common/header') ?>
+        <?php echo $sf_content ?>
+        <?php include_partial('Common/footer') ?>
     </div>
 
     <?php include_javascripts() ?>

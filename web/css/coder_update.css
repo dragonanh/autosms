@@ -4,3 +4,9 @@
         max-width: inherit;
     }
 }
+@media only screen and (max-width: 500px) {
+    #footers {
+        width: 100%;
+        padding-left: 0px;
+    }
+}

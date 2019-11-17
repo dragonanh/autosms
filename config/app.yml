@@ -5,5 +5,6 @@ all:
   mps_url: 'http://125.235.4.194/test/'
   ws_autosms:
     url: http://171.244.9.242:8280/kkk
+#    url: http://10.58.2.36:8020/kkk
     username: viettel
     password: jsKk432Sw

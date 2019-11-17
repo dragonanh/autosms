@@ -12,9 +12,12 @@ class CreateProgramForm extends sfForm
 {
   public function configure()
   {
+    $page = $this->getOption('page');
     $this->setWidgets([
       'content' => new sfWidgetFormTextarea([], [
         'class' => 'form-control border-success',
+        'style' => 'border-color: #CED4DA !important',
+        'readonly' => $page == 'detail' ? true : false
 //        'placeholder' => 'VD: Tôi đang họp liên lạc với tôi sau 16h',
 //        'data-placeholder' => 'VD: Tôi đang họp liên lạc với tôi sau 16h'
       ]),
@@ -22,14 +25,14 @@ class CreateProgramForm extends sfForm
         'class' => 'form-control',
         'placeholder' => 'Thời gian bắt đầu',
         'data-placeholder' => 'Thời gian bắt đầu',
-        'data-field' => "datetime",
+        'data-field' => $page == 'detail' ? "" : "datetime",
         'readonly' => true
       ]),
       'end_time' => new sfWidgetFormInputText([], [
         'class' => 'form-control',
         'placeholder' => 'Thời gian kết thúc',
         'data-placeholder' => 'Thời gian kết thúc',
-        'data-field' => "datetime",
+        'data-field' => $page == 'detail' ? "" : "datetime",
         'readonly' => true
       ]),
     ]);
