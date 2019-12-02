@@ -8,18 +8,17 @@
                     <input type="hidden" name="token" value="<?php echo $form->getCSRFToken() ?>">
 
                     <div class="txt text-center">
-                        Chào mừng Quý khách tới dịch vụ báo bận thông minh - Auto SMS của Viettel
-                        Vui lòng nhập các thông tin để tạo gói dịch vụ báo bận thông minh của riêng bạn :
+                        Vui lòng truy cập bằng 3G/4G của Viettel để sử dụng lịch báo bận tự động
                     </div>
 
-                    <?php include_partial('form', ['form' => $form]) ?>
+                    <?php include_partial('form', ['form' => $form, 'page' => 'detail']) ?>
 
                     <div class="txt" style="text-align: center;">
-                        Phí sử dụng lịch báo bận : 0đ. Hết hiệu lực, lịch báo bận sẽ tự động hủy
+                        Phí sử dụng lịch báo bận : 0đ. Hết thời gian báo bận, lịch báo bận đã tạo sẽ tự động hủy.
                     </div>
 
                     <div class="form-group txt" style="text-align: center;">
-                        <button type="submit" style="text-decoration: none;font-size: 116%;" class="btn btn-primary">Đăng ký sử dụng lịch báo bận</button>
+                        <button type="submit" style="text-decoration: none;font-size: 116%;" class="btn btn-primary">ĐĂNG KÝ LỊCH BÁO BẬN</button>
                     </div>
                 </form>
               <?php else: ?>

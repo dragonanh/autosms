@@ -17,7 +17,7 @@
 
     <?php include_stylesheets() ?>
     <link rel="stylesheet" type="text/css" media="screen" href="/css/coder_update.css?v=1">
-    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/css/jquery-3.4.1.js"></script>
 </head>
 
 <body>

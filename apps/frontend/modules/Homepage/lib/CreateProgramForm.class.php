@@ -14,12 +14,14 @@ class CreateProgramForm extends sfForm
   {
     $page = $this->getOption('page');
     $this->setWidgets([
-      'content' => new sfWidgetFormTextarea([], [
+      'content' => new sfWidgetFormInputText([], [
         'class' => 'form-control border-success',
-        'style' => 'border-color: #CED4DA !important',
-        'readonly' => $page == 'detail' ? true : false
-//        'placeholder' => 'VD: Tôi đang họp liên lạc với tôi sau 16h',
-//        'data-placeholder' => 'VD: Tôi đang họp liên lạc với tôi sau 16h'
+        'style' => 'border-color: #CED4DA !important; height: 90px;',
+        'readonly' => $page == 'detail' ? true : false,
+        'list' => 'suggestions',
+        'placeholder' => 'Nhập nội dung báo bận',
+        'data-placeholder' => 'Nhập nội dung báo bận',
+        'autocomplete' => 'off'
       ]),
       'start_time' => new sfWidgetFormInputText([], [
         'class' => 'form-control',

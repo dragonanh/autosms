@@ -13,6 +13,12 @@ mpsResult:
 downloadQrcode:
   url: /download-qrcode/:id
   param: { module: Homepage, action: download}
+about:
+  url: /gioi-thieu
+  param: { module: Homepage, action: about}
+guide:
+  url: /huong-dan
+  param: { module: Homepage, action: guide}
 
 ####################################### AJAX ########################################
 ajaxCreateProgram:

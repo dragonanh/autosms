@@ -10,6 +10,12 @@
  */
 class HomepageActions extends sfActions
 {
+  public function executeAbout(sfWebRequest $request){
+
+  }
+  public function executeGuide(sfWebRequest $request){
+
+  }
   public function executeIndex(sfWebRequest $request){
 
   }

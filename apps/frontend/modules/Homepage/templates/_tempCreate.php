@@ -5,8 +5,7 @@
         <div class="container">
             <div class="box_intro" style="margin: auto; width: auto !important;">
                 <div class="txt text-center">
-                    Chào mừng Quý khách tới dịch vụ báo bận thông minh - Auto SMS của Viettel
-                    Vui lòng nhập các thông tin để tạo gói dịch vụ báo bận thông minh của riêng bạn :
+                    Vui lòng nhập thông tin để tạo lịch báo bận tự động AutoSMS
                 </div>
 
                 <?php include_partial('form', ['form' => $form]) ?>
