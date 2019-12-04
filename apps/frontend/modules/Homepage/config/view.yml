@@ -12,12 +12,12 @@ createSuccess:
     - /datetimepicker/DateTimePicker.js
     - /datetimepicker/i18n/DateTimePicker-i18n.js
     - datetimepicker.js?v=1.5
-    - main.js?v=1.5
+    - main.js?v=1.6
 detailSuccess:
   metas:
     title: Thông tin lịch gửi tin
   javascripts:
-    - main.js?v=1.5
+    - main.js?v=1.6
 mpsResultSuccess:
   metas:
     title: Kết quả thanh toán

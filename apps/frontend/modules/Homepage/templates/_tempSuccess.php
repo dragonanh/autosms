@@ -21,6 +21,8 @@
 
             <div id="qrcode" class="txt text-center">
                 <img style="margin: 0 auto; text-align: center; height: 200px" id="qrcode_image" src="<?php echo $qrCodeImg ?>" alt="">
+                <br>
+                Link chia sẻ: <a href="<?php echo url_for('qrcode', ['id' => $id]) ?>"><?php echo url_for('qrcode', ['id' => $id], true) ?></a>
             </div>
 
             <div class="txt" style="text-align: center;">

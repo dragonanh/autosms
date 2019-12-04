@@ -10,6 +10,14 @@
  */
 class HomepageActions extends sfActions
 {
+  public function executeQrcode(sfWebRequest $request){
+    $id = $request->getParameter('id');
+    if(!$id) $this->forward404();
+
+    $content = $this->generateUrl('detailProgram', ['id' => $id], true);
+    $qrcode = new ProcessQrCode($content);
+    $this->qrCodeImg = $qrcode->writeDataUri();
+  }
   public function executeAbout(sfWebRequest $request){
 
   }
@@ -242,17 +250,19 @@ class HomepageActions extends sfActions
     if(!file_exists($filePath)){ // file does not exist
       die('file not found');
     } else {
-      $fp = fopen($filePath, 'rb');
-      header('Content-Type: "application/octet-stream"');
-      header('Content-Disposition: attachment; filename="autosms_qrcode.png"');
-      header("Content-Transfer-Encoding: binary");
+      header('Content-Description: File Transfer');
+      header('Content-Type:  application/octet-stream');
+      header('Content-Disposition: attachment; filename=qrcode.png');
+      header('Content-Transfer-Encoding: binary');
       header('Expires: 0');
-      header('Pragma: no-cache');
-      header("Content-Length: ".filesize($filePath));
+      header('Cache-Control: must-revalidate');
+      header('Pragma: public');
+      header('Content-Length: ' . filesize($filePath));
+      ob_clean();
+      flush();
+      readfile($filePath);
 
-      // read the file from disk
-      fpassthru($fp);
-      fclose($fp);
+      unlink($filePath);
       exit();
     }
   }

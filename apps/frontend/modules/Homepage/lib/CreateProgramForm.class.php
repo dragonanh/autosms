@@ -27,15 +27,17 @@ class CreateProgramForm extends sfForm
         'class' => 'form-control',
         'placeholder' => 'Thời gian bắt đầu',
         'data-placeholder' => 'Thời gian bắt đầu',
-        'data-field' => $page == 'detail' ? "" : "datetime",
-        'readonly' => true
+//        'data-field' => $page == 'detail' ? "" : "datetime",
+        'type' => $page == 'detail' ? "" : "datetime-local",
+//        'readonly' => true
       ]),
       'end_time' => new sfWidgetFormInputText([], [
         'class' => 'form-control',
         'placeholder' => 'Thời gian kết thúc',
         'data-placeholder' => 'Thời gian kết thúc',
-        'data-field' => $page == 'detail' ? "" : "datetime",
-        'readonly' => true
+//        'data-field' => $page == 'detail' ? "" : "datetime",
+        'type' => $page == 'detail' ? "" : "datetime-local",
+//        'readonly' => true
       ]),
     ]);
 
@@ -74,26 +76,29 @@ class CreateProgramForm extends sfForm
   {
     $errorArr = array();
     if ($values['start_time'] != '' && $values['end_time'] != '') {
-      if($this->validateDate($values['start_time']) && $this->validateDate($values['end_time'])){
-        $isLTNow = $this->compareTwoDate($values['end_time'], date('d-m-Y H:i:s'));
+      $startTime = str_replace('T', ' ', $values['start_time']);
+      $endTime = str_replace('T', ' ', $values['end_time']);
+      if($this->validateDate($startTime) && $this->validateDate($endTime)){
+        $isLTNow = $this->compareTwoDate($endTime, date('Y-m-d H:i'));
+
         if($isLTNow){
           $errorArr['end_time'] = new sfValidatorError($validator, 'Thời gian kết thúc phải lớn hơn thời gian hiện tại');
-        }elseif($this->compareTwoDate($values['end_time'], $values['start_time'])){
+        }elseif($this->compareTwoDate($endTime, $startTime)){
           $errorArr['start_time'] = new sfValidatorError($validator, 'Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc');
         }else{
-          $dt = new DateTime($values['start_time']);
-          $temp = $dt->modify('+ 8 hour')->format('d-m-Y H:i:s');
-          if(!$this->compareTwoDate($values['end_time'],$temp)){
+          $dt = new DateTime($startTime);
+          $temp = $dt->modify('+ 8 hour')->format('Y-m-d H:i');
+          if(!$this->compareTwoDate($endTime,$temp)){
             $errorArr['start_time'] = new sfValidatorError($validator, 'Thời gian báo bận không quá 08h kể từ thời gian bắt đầu');
           }
         }
 
       }else{
-        if(!$this->validateDate($values['start_time'])){
+        if(!$this->validateDate($startTime)){
           $errorArr['start_time'] = new sfValidatorError($validator, 'Thời gian bắt đầu không hợp lệ');
         }
 
-        if(!$this->validateDate($values['end_time'])){
+        if(!$this->validateDate($endTime)){
           $errorArr['end_time'] = new sfValidatorError($validator, 'Thời gian kết thúc không hợp lệ');
         }
       }
@@ -105,14 +110,14 @@ class CreateProgramForm extends sfForm
     return $values;
   }
 
-  public function compareTwoDate($d1, $d2, $format = 'd-m-Y H:i:s'){
+  public function compareTwoDate($d1, $d2, $format = 'Y-m-d H:i'){
     $date1 = DateTime::createFromFormat($format, $d1);
     $date2 = DateTime::createFromFormat($format, $d2);
 
     return strtotime($date1->format($format)) < strtotime($date2->format($format));
   }
 
-  public function validateDate($date, $format = 'd-m-Y H:i:s')
+  public function validateDate($date, $format = 'Y-m-d H:i')
   {
     $d = DateTime::createFromFormat($format, $date);
     return $d && $d->format($format) == $date;

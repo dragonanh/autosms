@@ -19,6 +19,9 @@ about:
 guide:
   url: /huong-dan
   param: { module: Homepage, action: guide}
+qrcode:
+  url: /qrcode/:id
+  param: { module: Homepage, action: qrcode}
 
 ####################################### AJAX ########################################
 ajaxCreateProgram:

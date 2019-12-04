@@ -1,4 +1,26 @@
 .field-error{color: red}
+.clearable-input {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+.clearable-input > input {
+    padding-right: 1.4em;
+}
+.clearable-input >[data-clear-input] {
+    display: none;
+    position: absolute;
+    top: 36%;
+    right: 0;
+    font-weight: bold;
+    font-size: 1.8em;
+    padding: 0 0.2em;
+    line-height: 1em;
+    cursor: pointer;
+}
+.clearable-input > input::-ms-clear {
+    display: none;
+}
 @media screen and (max-width: 600px) {
     .dtpicker-content {
         max-width: inherit;

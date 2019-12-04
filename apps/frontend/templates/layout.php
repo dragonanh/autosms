@@ -16,7 +16,7 @@
     <link rel="icon" href="/images/favicon.ico">
 
     <?php include_stylesheets() ?>
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/coder_update.css?v=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/coder_update.css?v=1.2">
     <script type="text/javascript" src="/css/jquery-3.4.1.js"></script>
 </head>
 

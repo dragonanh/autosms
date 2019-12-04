@@ -44,7 +44,7 @@
                     <p class="txt customMB" style="width:460px;">Dịch vụ Tin nhắn báo bận tự động – Auto SMS</p>
                     <h2>Thể hiện cá tính</h2>
                     <p class="txt">Tin nhắn báo bận thông minh</p>
-                    <p style="width:278px;" class="btn"><a href="<?php echo url_for('@createProgram') ?>" target="_blank">Tạo lịch báo
+                    <p style="width:278px;" class="btn"><a href="<?php echo url_for('@createProgram') ?>">Tạo lịch báo
                             bận <i class="ic"><img src="/images/common/ic_arrow.png" alt=""></i></a></p>
                 </div>
                 <p class="img"><img src="/images/home/img_main-pc.png" alt="" class="view_pc-tab"><img

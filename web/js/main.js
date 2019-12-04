@@ -68,6 +68,22 @@ $(document).on('focus', 'input[type=text]', function () {
   $(this).attr('placeholder', $(this).attr('data-placeholder'))
 });
 
+Array.prototype.forEach.call(document.querySelectorAll('.clearable-input'), function(el) {
+  var input = el.querySelector('input');
+
+  conditionallyHideClearIcon();
+  input.addEventListener('input', conditionallyHideClearIcon);
+  el.querySelector('[data-clear-input]').addEventListener('click', function(e) {
+    input.value = '';
+    conditionallyHideClearIcon();
+  });
+
+  function conditionallyHideClearIcon(e) {
+    var target = (e && e.target) || input;
+    target.nextElementSibling.style.display = target.value ? 'block' : 'none';
+  }
+});
+
 var isSubmit = 0;
 $(document).on('submit', '#formCreateProgram', function (e) {
   e.preventDefault();

@@ -6,7 +6,14 @@
 <div class="txt text-center"></div>
 
 <div class="form-group text-center">
-    <?php echo $form['content']->render() ?>
+    <?php if(!isset($page) || $page != 'detail'): ?>
+        <div class="clearable-input">
+            <?php echo $form['content']->render() ?>
+            <span data-clear-input>&times;</span>
+        </div>
+    <?php else: ?>
+        <?php echo $form['content']->render() ?>
+    <?php endif ?>
     <datalist id="suggestions">
         <option value="Toi dang ban, vui long goi lai sau 1h.">
         <option value="I am busy. Call me back later. Thanks you.">
