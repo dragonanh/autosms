@@ -8,16 +8,18 @@ createSuccess:
     title: Tạo lịch gửi tin
   stylesheets:
     - /datetimepicker/DateTimePicker.css
+#    - datetimepicker.css
   javascripts:
+#    - https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.0/moment-with-locales.min.js
     - /datetimepicker/DateTimePicker.js
     - /datetimepicker/i18n/DateTimePicker-i18n.js
-    - datetimepicker.js?v=1.5
-    - main.js?v=1.6
+    - datetimepicker.js?v=1.9.5
+    - main.js?v=1.9.7
 detailSuccess:
   metas:
     title: Thông tin lịch gửi tin
   javascripts:
-    - main.js?v=1.6
+    - main.js?v=1.9.7
 mpsResultSuccess:
   metas:
     title: Kết quả thanh toán

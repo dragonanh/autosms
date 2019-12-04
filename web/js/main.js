@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
   $('.slider_video').slick({
     dots: false,
     slidesToShow: 3,
@@ -107,15 +108,13 @@ function createProgram(obj) {
         $('#loading').remove();
         $('.section-create').html(response.template);
         initDatetimepicker();
-
-        var x;
-        if($(window).width() > 768){
-          x = 20;
-        }else{
-          x = 70;
-        }
+        var scrollId;
+        if(response.errorCode === 0)
+          scrollId = $('#qrcode');
+        else
+          scrollId = $('.field-error:first').parents('.form-group');
         $('html, body').animate({
-          scrollTop: $('#qrcode').offset().top - x
+          scrollTop: scrollId.offset().top - 70
         }, 800);
       },
       error: function (request, status, err) {

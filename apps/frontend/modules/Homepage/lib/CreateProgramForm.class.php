@@ -27,17 +27,17 @@ class CreateProgramForm extends sfForm
         'class' => 'form-control',
         'placeholder' => 'Thời gian bắt đầu',
         'data-placeholder' => 'Thời gian bắt đầu',
-//        'data-field' => $page == 'detail' ? "" : "datetime",
-        'type' => $page == 'detail' ? "" : "datetime-local",
-//        'readonly' => true
+        'data-field' => $page == 'detail' ? "" : "datetime",
+//        'type' => $page == 'detail' ? "" : "hidden",
+        'readonly' => true
       ]),
       'end_time' => new sfWidgetFormInputText([], [
         'class' => 'form-control',
         'placeholder' => 'Thời gian kết thúc',
         'data-placeholder' => 'Thời gian kết thúc',
-//        'data-field' => $page == 'detail' ? "" : "datetime",
-        'type' => $page == 'detail' ? "" : "datetime-local",
-//        'readonly' => true
+        'data-field' => $page == 'detail' ? "" : "datetime",
+//        'type' => $page == 'detail' ? "text" : "hidden",
+        'readonly' => true
       ]),
     ]);
 
@@ -79,7 +79,7 @@ class CreateProgramForm extends sfForm
       $startTime = str_replace('T', ' ', $values['start_time']);
       $endTime = str_replace('T', ' ', $values['end_time']);
       if($this->validateDate($startTime) && $this->validateDate($endTime)){
-        $isLTNow = $this->compareTwoDate($endTime, date('Y-m-d H:i'));
+        $isLTNow = $this->compareTwoDate($endTime, date('d-m-Y H:i:s'));
 
         if($isLTNow){
           $errorArr['end_time'] = new sfValidatorError($validator, 'Thời gian kết thúc phải lớn hơn thời gian hiện tại');
@@ -87,7 +87,7 @@ class CreateProgramForm extends sfForm
           $errorArr['start_time'] = new sfValidatorError($validator, 'Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc');
         }else{
           $dt = new DateTime($startTime);
-          $temp = $dt->modify('+ 8 hour')->format('Y-m-d H:i');
+          $temp = $dt->modify('+ 8 hour')->format('d-m-Y H:i:s');
           if(!$this->compareTwoDate($endTime,$temp)){
             $errorArr['start_time'] = new sfValidatorError($validator, 'Thời gian báo bận không quá 08h kể từ thời gian bắt đầu');
           }
@@ -110,14 +110,14 @@ class CreateProgramForm extends sfForm
     return $values;
   }
 
-  public function compareTwoDate($d1, $d2, $format = 'Y-m-d H:i'){
+  public function compareTwoDate($d1, $d2, $format = 'd-m-Y H:i:s'){
     $date1 = DateTime::createFromFormat($format, $d1);
     $date2 = DateTime::createFromFormat($format, $d2);
 
     return strtotime($date1->format($format)) < strtotime($date2->format($format));
   }
 
-  public function validateDate($date, $format = 'Y-m-d H:i')
+  public function validateDate($date, $format = 'd-m-Y H:i:s')
   {
     $d = DateTime::createFromFormat($format, $date);
     return $d && $d->format($format) == $date;
