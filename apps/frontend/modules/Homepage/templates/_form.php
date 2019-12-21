@@ -15,11 +15,10 @@
         <?php echo $form['content']->render() ?>
     <?php endif ?>
     <datalist id="suggestions">
-        <option value="Toi dang ban, vui long goi lai sau 1h.">
-        <option value="I am busy. Call me back later. Thanks you.">
-        <option value="Toi khong the nghe dien thoai bay gio. Goi lai sau.">
-        <option value="Thue bao Quy khach vua goi hien dang BUSY, goi lai sau nhe.">
-        <option value="Toi khong the nghe dien thoai bay gio, toi se goi lai sau.">
+        <option value='Hien tai toi dang ban, toi se goi lai sau "hh:mm dd/mm". Cam on!'>
+        <option value='Hien tai toi dang hop, toi se goi lai sau "hh:mm dd/mm". Cam on!'>
+        <option value='Hien tai toi dang hoc, toi se goi lai sau "hh:mm dd/mm". Cam on!'>
+        <option value='Hien tai toi dang lai xe, toi se goi lai sau "hh:mm dd/mm". Cam on!'>
     </datalist>
     <div class="field-error"><?php echo $form['content']->getError() ?></div>
     <div class="txt text-center">

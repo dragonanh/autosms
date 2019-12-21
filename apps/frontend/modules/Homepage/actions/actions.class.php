@@ -130,7 +130,9 @@ class HomepageActions extends sfActions
       $autoSms = new AutosmsWS();
       $startTime = date('YmdHis', strtotime($formValues['start_time']));
       $endTime = date('YmdHis', strtotime($formValues['end_time']));
-      $result =$autoSms->createSchedule(removeSignClass::removeSignOnly($formValues['content']),$startTime, $endTime);
+      $content = removeSignClass::removeSignOnly($formValues['content']);
+      $content = str_replace("hh:mm dd/mm", date('H:i d/m', strtotime($formValues['end_time'])), $content);
+      $result =$autoSms->createSchedule($content,$startTime, $endTime);
       if($result['errorCode'] == 0){
         $errorCode = 0;
         $message = 'Khởi tạo thành công';
