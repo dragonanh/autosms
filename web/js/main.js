@@ -108,14 +108,16 @@ function createProgram(obj) {
         $('#loading').remove();
         $('.section-create').html(response.template);
         initDatetimepicker();
-        var scrollId;
-        if(response.errorCode === 0)
-          scrollId = $('#qrcode');
-        else
-          scrollId = $('.field-error:first').parents('.form-group');
-        $('html, body').animate({
-          scrollTop: scrollId.offset().top - 70
-        }, 800);
+        // var scrollId;
+        if(response.errorCode === 0) {
+          // scrollId = $('#qrcode');
+          $('header .con_main').hide();
+        }
+        // else
+          // scrollId = $('.field-error:first').parents('.form-group');
+        // $('html, body').animate({
+        //   scrollTop: scrollId.offset().top - 70
+        // }, 800);
       },
       error: function (request, status, err) {
         isSubmit = 0;

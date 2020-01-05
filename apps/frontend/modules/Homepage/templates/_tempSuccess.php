@@ -1,22 +1,18 @@
 <div class="con_intro pv" id="intro">
     <div class="container">
-        <div class="box_intro" style="margin: auto; width: auto !important;">
+        <form class="box_intro" style="margin: auto; width: auto !important;">
             <div class="txt" style="text-align: center;">
                 Quý khách đã khởi tạo thành công lịch báo bận thông minh
             </div>
-            <div class="txt" style="text-align: center;">
-                Chi tiết
-            </div>
 
-            <?php include_partial('form', ['form' => $form]) ?>
+            <?php include_partial('tempDetail', [
+                    'content' => $content, 'startTime' => $startTime, 'endTime' => $endTime
+            ]) ?>
+        </form>
 
+        <div class="box_intro" style="margin: auto; width: auto !important;">
             <div class="txt" style="text-align: center;">
                 Phí sử dụng lịch báo bận phí DV: 0đ. Hết hiệu lực, lịch báo bận sẽ tự động hủy
-            </div>
-
-            <div class="form-group txt" style="text-align: center;">
-                <a href="#" style="text-decoration: none;font-size: 116%;" class="btn btn-primary">Mã QR
-                    code để đăng ký sử dụng lịch báo bận quý khách đã khởi tạo</a>
             </div>
 
             <div id="qrcode" class="txt text-center">

@@ -13,22 +13,36 @@ class HomepageActions extends sfActions
   public function executeQrcode(sfWebRequest $request){
     $id = $request->getParameter('id');
     if(!$id) $this->forward404();
+    $this->error = null;
 
-    $content = $this->generateUrl('detailProgram', ['id' => $id], true);
-    $qrcode = new ProcessQrCode($content);
-    $this->qrCodeImg = $qrcode->writeDataUri();
-    $this->id = $id;
+    $autoSms = new AutosmsWS();
+    $detail = $autoSms->detailSchedule($id);
+    if($detail['errorCode'] == 0){
+      $schedule = $detail['data'];
+      $this->content = $schedule['content'];
+      $this->startTime = date('d-m-Y H:i:s', strtotime($schedule['start_time']));
+      $this->endTime = date('d-m-Y H:i:s', strtotime($schedule['end_time']));
 
-    $urlShare = "";
-    $user_agent     =   $_SERVER['HTTP_USER_AGENT'];
-    $smsContent = sprintf('DV Tin nhan bao ban thong minh AutoSMS %s', $content);
-    $detect = new Mobile_Detect();
-    if($detect->is('AndroidOS')){
-      $urlShare = "sms:?body=$smsContent";
-    }elseif($detect->is('iOS') || preg_match('/macintosh|mac os x/i', $user_agent)){
-      $urlShare = sprintf("sms://open?addresses=/&body=%s",$smsContent);
+      $content = $this->generateUrl('detailProgram', ['id' => $id], true);
+      $qrcode = new ProcessQrCode($content);
+      $this->qrCodeImg = $qrcode->writeDataUri();
+      $this->id = $id;
+
+      $urlShare = "";
+      $user_agent     =   $_SERVER['HTTP_USER_AGENT'];
+      $smsContent = sprintf('DV Tin nhan bao ban thong minh AutoSMS %s', $content);
+      $detect = new Mobile_Detect();
+      if($detect->is('AndroidOS')){
+        $urlShare = "sms:?body=$smsContent";
+      }elseif($detect->is('iOS') || preg_match('/macintosh|mac os x/i', $user_agent)){
+        $urlShare = sprintf("sms://open?addresses=/&body=%s",$smsContent);
+      }
+      $this->urlShare = $urlShare;
+    }else{
+      $this->error= 'Hệ thống bận hoặc mã qrcode không tồn tại';
     }
-    $this->urlShare = $urlShare;
+
+
   }
   public function executeAbout(sfWebRequest $request){
 
@@ -153,11 +167,16 @@ class HomepageActions extends sfActions
         $id = $result['id'];
 
         //tao qrcode
-        $content = $this->generateUrl('detailProgram', ['id' => $id], true);
-        $qrcode = new ProcessQrCode($content);
+        $contentQr = $this->generateUrl('detailProgram', ['id' => $id], true);
+        $qrcode = new ProcessQrCode($contentQr);
         $qrCodeImg = $qrcode->writeDataUri();
 
-        $template = $this->getPartial('Homepage/tempSuccess', ['form' => $form, 'qrCodeImg' => $qrCodeImg, 'id' => $id]);
+        $template = $this->getPartial('Homepage/tempSuccess', [
+          'form' => $form, 'qrCodeImg' => $qrCodeImg, 'id' => $id,
+          'content' => $content,
+          'startTime' => $formValues['start_time'],
+          'endTime' => $formValues['end_time']
+        ]);
       }else{
         $errorCode = 2;
         $message = 'Khởi tạo thất bại';

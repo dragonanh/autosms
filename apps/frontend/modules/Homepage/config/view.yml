@@ -16,12 +16,12 @@ createSuccess:
 #    - /air-datepicker/js/i18n/datepicker.en.js?v=1.4
     - /css/jquery.datetimepicker.full.min.js
     - datetimepicker.js?v=1.10.7
-    - main.js?v=1.9.7
+    - main.js?v=1.9.9
 detailSuccess:
   metas:
     title: Thông tin lịch gửi tin
   javascripts:
-    - main.js?v=1.9.7
+    - main.js?v=1.9.9
 mpsResultSuccess:
   metas:
     title: Kết quả thanh toán

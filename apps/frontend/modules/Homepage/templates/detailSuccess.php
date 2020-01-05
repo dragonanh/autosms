@@ -1,4 +1,4 @@
-<?php include_partial('Common/header', ['displayBanner' => true]) ?>
+<?php include_partial('Common/header', ['displayBanner' => false]) ?>
 <div class="con_intro pv" id="intro">
     <div class="container">
         <div class="box_intro" style="margin: auto; width: auto !important;">

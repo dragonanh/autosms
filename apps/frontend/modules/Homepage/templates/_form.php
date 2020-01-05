@@ -20,9 +20,11 @@
         <option value='Hien tai toi dang lai xe, toi se goi lai sau "hh:mm dd/mm". Cam on!'>
     </datalist>
     <div class="field-error"><?php echo $form['content']->getError() ?></div>
-    <div class="txt text-center">
-        <i style="font-style: italic;">(Nội dung báo bận là ký tự không dấu)</i>
-    </div>
+    <?php if(!isset($page) || $page != 'detail'): ?>
+        <div class="txt text-center">
+            <i style="font-style: italic;">(Nội dung báo bận là ký tự không dấu)</i>
+        </div>
+    <?php endif ?>
 </div>
 
 <div style="text-align: center;">
