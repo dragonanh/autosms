@@ -55,26 +55,26 @@ class HomepageActions extends sfActions
     $autoSms = new AutosmsWS();
     $detail = $autoSms->detailSchedule($id);
     if($detail['errorCode'] == 0){
-//      $logger->info(sprintf("[executeDetail] %s|GET DETAIL SUCCESS", $id));
-//      $mobileInfo = $this->getUser()->getAttribute('autosms.detectMobile');
-//      if(empty($mobileInfo) && (!$this->getUser()->hasFlash('error') && !$this->getUser()->hasFlash('success'))){
-//        $logger->info(sprintf("[executeDetail] %s|NOT INFO IN SESSION", $id));
-//        //truong hop khong co thong tin so dien thoai trong session
-//        //thuc hien redirect sang mps de nhan dien
-//        $mps = new MpsWS();
-//        $transId = date('ymdHis').rand(10000,99999);
-//        //luu id lich vao session
-//        $this->getUser()->setAttribute(sprintf('autosms.detect.transId.%s', $transId), $id);
-//        $params = [
-//          'SUB' => 'AUTOSMS_DAILY', 'PRO' => 'GHD',
-//          'SER' => 'AutoSMS', 'REQ' => $transId
-//        ];
-//        $urlRedirect = $mps->getMpsUrl($params, MpsWS::MOBILE);
-//        $logger->info(sprintf("[executeDetail] %s|URL MPS DETECT MOBILE: %s", $id, $urlRedirect));
-//        $this->redirect($urlRedirect);
-//      }
-//
-//      $logger->info(sprintf("[executeDetail] %s|DETECT SUCCESS|%s", $id, json_encode($mobileInfo)));
+      $logger->info(sprintf("[executeDetail] %s|GET DETAIL SUCCESS", $id));
+      $mobileInfo = $this->getUser()->getAttribute('autosms.detectMobile');
+      if(empty($mobileInfo) && (!$this->getUser()->hasFlash('error') && !$this->getUser()->hasFlash('success'))){
+        $logger->info(sprintf("[executeDetail] %s|NOT INFO IN SESSION", $id));
+        //truong hop khong co thong tin so dien thoai trong session
+        //thuc hien redirect sang mps de nhan dien
+        $mps = new MpsWS();
+        $transId = date('ymdHis').rand(10000,99999);
+        //luu id lich vao session
+        $this->getUser()->setAttribute(sprintf('autosms.detect.transId.%s', $transId), $id);
+        $params = [
+          'SUB' => 'AUTOSMS_DAILY', 'PRO' => 'GHD',
+          'SER' => 'AutoSMS', 'REQ' => $transId
+        ];
+        $urlRedirect = $mps->getMpsUrl($params, MpsWS::MOBILE);
+        $logger->info(sprintf("[executeDetail] %s|URL MPS DETECT MOBILE: %s", $id, $urlRedirect));
+        $this->redirect($urlRedirect);
+      }
+
+      $logger->info(sprintf("[executeDetail] %s|DETECT SUCCESS|%s", $id, json_encode($mobileInfo)));
 
       $this->error = null;
 
