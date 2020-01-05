@@ -235,7 +235,7 @@ h3.title span.name_large {
 }
 
 .con_intro {
-  padding: 100px 0;
+  padding: 25px 0;
   background: url(../images/home/bg_intro.png) no-repeat top right;
 }
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
@@ -333,7 +333,7 @@ h3.title span.name_large {
   line-height: 2;
   color: #000000;
   font-size: 154%;
-  padding-bottom: 40px;
+  padding-bottom: 4px;
 }
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
   .con_intro .container .box_intro .txt {

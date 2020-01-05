@@ -7,13 +7,15 @@ createSuccess:
   metas:
     title: Tạo lịch gửi tin
   stylesheets:
-    - /datetimepicker/DateTimePicker.css
+#    - /air-datepicker/css/datepicker.min.css
+#    - /datetimepicker/DateTimePicker.css
 #    - datetimepicker.css
+    - jquery.datetimepicker.css
   javascripts:
-#    - https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.0/moment-with-locales.min.js
-    - /datetimepicker/DateTimePicker.js
-    - /datetimepicker/i18n/DateTimePicker-i18n.js
-    - datetimepicker.js?v=1.9.5
+#    - /air-datepicker/js/datepicker.min.js?v=1.6
+#    - /air-datepicker/js/i18n/datepicker.en.js?v=1.4
+    - /css/jquery.datetimepicker.full.min.js
+    - datetimepicker.js?v=1.10.7
     - main.js?v=1.9.7
 detailSuccess:
   metas:

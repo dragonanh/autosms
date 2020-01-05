@@ -21,9 +21,21 @@
 .clearable-input > input::-ms-clear {
     display: none;
 }
+.box_header .con_main .customMB{
+    width:460px;
+}
+footer .box_infor .address{
+    width: 405px;; padding-left: 50px;
+}
 @media screen and (max-width: 600px) {
     .dtpicker-content {
         max-width: inherit;
+    }
+    .box_header .con_main .customMB{
+        width: auto;
+    }
+    footer .box_infor .address{
+        width: auto;
     }
 }
 @media only screen and (max-width: 500px) {

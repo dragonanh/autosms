@@ -23,8 +23,8 @@
             <div class="container">
                 <div class="menu_global">
                     <h1 class="logo"><a href="<?php echo url_for('@homepage')?>" class="over"><img style="width: 90px;"
-                                                                            src="/images/common/favicon.ico" alt="Báo bận thông minh"><span><b
-                                        style="font-size: 50px;">AutoSMS</b></span></a></h1>
+                                                                            src="/images/common/favicon.ico" alt="Báo bận thông minh">
+                            <span style="padding-left: 20px !important;">AutoSMS</span></a></h1>
                     <ul class="nav_global">
                         <li><a href="<?php echo url_for('@homepage')?>">TRANG CHỦ</a></li>
                         <li><a href="<?php echo url_for('@about')?>">GIỚI THIỆU</a></li>
@@ -38,10 +38,12 @@
                 </div>
             </div>
         </div>
+
+        <?php if(!empty($displayBanner)): ?>
         <div class="con_main">
             <div class="container">
                 <div class="box_txt">
-                    <p class="txt customMB" style="width:460px;">Dịch vụ Tin nhắn báo bận tự động – Auto SMS</p>
+                    <p class="txt customMB">Dịch vụ Tin nhắn báo bận tự động – Auto SMS</p>
                     <h2>Thể hiện cá tính</h2>
                     <p class="txt">Tin nhắn báo bận thông minh</p>
                     <p style="width:278px;" class="btn"><a href="<?php echo url_for('@createProgram') ?>">Tạo lịch báo
@@ -51,5 +53,6 @@
                             src="/images/home/img_main-sp.png" alt="" class="view_sp"></p>
             </div>
         </div>
+        <?php endif ?>
     </div>
 </header>

@@ -33,6 +33,66 @@
   }
 }
 
+#share {
+  background-color:#5D7DAE;
+  height:24px;
+  width: 80px;
+}
+
+#share a.click {
+  font-size:13px;
+  font-weight:bold;
+  text-align:center;
+  color:#fff;
+  border:1px solid #FFF;
+  background-color:#5D7DAE;
+  padding: 2px 10px;
+  cursor: pointer;
+  text-decoration:none;
+  width:80px;
+  display:block;
+}
+
+#save {
+  background-color:#5D7DAE;
+  height:24px;
+  width: 80px;
+}
+
+#save a.click1 {
+  font-size:13px;
+  font-weight:bold;
+  text-align:center;
+  color:#fff;
+  border:1px solid #FFF;
+  background-color:#5D7DAE;
+  padding: 2px 10px;
+  cursor: pointer;
+  text-decoration:none;
+  width:80px;
+  display:block;
+}
+
+#print {
+  background-color:#5D7DAE;
+  height:24px;
+  width: 80px;
+}
+
+#print a.click2 {
+  font-size:13px;
+  font-weight:bold;
+  text-align:center;
+  color:#fff;
+  border:1px solid #FFF;
+  background-color:#5D7DAE;
+  padding: 2px 10px;
+  cursor: pointer;
+  text-decoration:none;
+  width:80px;
+  display:block;
+}
+
 .container:after, header .top-header:after, .fixnav-sp:after, .fixnav .box_menu .fixnav_menu:after {
   content: "";
   display: table;

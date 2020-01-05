@@ -16,13 +16,13 @@ default:
   stylesheets:
     - font-awesome.min.css
     - https://fonts.googleapis.com/css?family=Open+Sans|Roboto
-    - bootstrap.min.css
     - slick.css
-    - default.css
-    - common.css
-    - homepage.css
+    - default.css?v=1
+    - common.css?v=1
+    - homepage.css?v=1
+    - bootstrap.min.css?v=1
   javascripts:
     - slick.min.js
-    - common.js
+    - common.js?v=1
   has_layout:     true
   layout:         layout

@@ -17,6 +17,18 @@ class HomepageActions extends sfActions
     $content = $this->generateUrl('detailProgram', ['id' => $id], true);
     $qrcode = new ProcessQrCode($content);
     $this->qrCodeImg = $qrcode->writeDataUri();
+    $this->id = $id;
+
+    $urlShare = "";
+    $user_agent     =   $_SERVER['HTTP_USER_AGENT'];
+    $smsContent = sprintf('DV Tin nhan bao ban thong minh AutoSMS %s', $content);
+    $detect = new Mobile_Detect();
+    if($detect->is('AndroidOS')){
+      $urlShare = "sms:?body=$smsContent";
+    }elseif($detect->is('iOS') || preg_match('/macintosh|mac os x/i', $user_agent)){
+      $urlShare = sprintf("sms://open?addresses=/&body=%s",$smsContent);
+    }
+    $this->urlShare = $urlShare;
   }
   public function executeAbout(sfWebRequest $request){
 
@@ -43,26 +55,26 @@ class HomepageActions extends sfActions
     $autoSms = new AutosmsWS();
     $detail = $autoSms->detailSchedule($id);
     if($detail['errorCode'] == 0){
-      $logger->info(sprintf("[executeDetail] %s|GET DETAIL SUCCESS", $id));
-      $mobileInfo = $this->getUser()->getAttribute('autosms.detectMobile');
-      if(empty($mobileInfo) && (!$this->getUser()->hasFlash('error') && !$this->getUser()->hasFlash('success'))){
-        $logger->info(sprintf("[executeDetail] %s|NOT INFO IN SESSION", $id));
-        //truong hop khong co thong tin so dien thoai trong session
-        //thuc hien redirect sang mps de nhan dien
-        $mps = new MpsWS();
-        $transId = date('ymdHis').rand(10000,99999);
-        //luu id lich vao session
-        $this->getUser()->setAttribute(sprintf('autosms.detect.transId.%s', $transId), $id);
-        $params = [
-          'SUB' => 'AUTOSMS_DAILY', 'PRO' => 'GHD',
-          'SER' => 'AutoSMS', 'REQ' => $transId
-        ];
-        $urlRedirect = $mps->getMpsUrl($params, MpsWS::MOBILE);
-        $logger->info(sprintf("[executeDetail] %s|URL MPS DETECT MOBILE: %s", $id, $urlRedirect));
-        $this->redirect($urlRedirect);
-      }
-
-      $logger->info(sprintf("[executeDetail] %s|DETECT SUCCESS|%s", $id, json_encode($mobileInfo)));
+//      $logger->info(sprintf("[executeDetail] %s|GET DETAIL SUCCESS", $id));
+//      $mobileInfo = $this->getUser()->getAttribute('autosms.detectMobile');
+//      if(empty($mobileInfo) && (!$this->getUser()->hasFlash('error') && !$this->getUser()->hasFlash('success'))){
+//        $logger->info(sprintf("[executeDetail] %s|NOT INFO IN SESSION", $id));
+//        //truong hop khong co thong tin so dien thoai trong session
+//        //thuc hien redirect sang mps de nhan dien
+//        $mps = new MpsWS();
+//        $transId = date('ymdHis').rand(10000,99999);
+//        //luu id lich vao session
+//        $this->getUser()->setAttribute(sprintf('autosms.detect.transId.%s', $transId), $id);
+//        $params = [
+//          'SUB' => 'AUTOSMS_DAILY', 'PRO' => 'GHD',
+//          'SER' => 'AutoSMS', 'REQ' => $transId
+//        ];
+//        $urlRedirect = $mps->getMpsUrl($params, MpsWS::MOBILE);
+//        $logger->info(sprintf("[executeDetail] %s|URL MPS DETECT MOBILE: %s", $id, $urlRedirect));
+//        $this->redirect($urlRedirect);
+//      }
+//
+//      $logger->info(sprintf("[executeDetail] %s|DETECT SUCCESS|%s", $id, json_encode($mobileInfo)));
 
       $this->error = null;
 
@@ -131,7 +143,9 @@ class HomepageActions extends sfActions
       $startTime = date('YmdHis', strtotime($formValues['start_time']));
       $endTime = date('YmdHis', strtotime($formValues['end_time']));
       $content = removeSignClass::removeSignOnly($formValues['content']);
-      $content = str_replace("hh:mm dd/mm", date('H:i d/m', strtotime($formValues['end_time'])), $content);
+      $timeStr = str_replace(" ", "' ngay ", date("H:i d/m/Y", strtotime($formValues['end_time'])));
+      $timeStr = str_replace(":", "h", $timeStr);
+      $content = str_replace("hh:mm dd/mm", $timeStr, $content);
       $result =$autoSms->createSchedule($content,$startTime, $endTime);
       if($result['errorCode'] == 0){
         $errorCode = 0;
@@ -244,7 +258,8 @@ class HomepageActions extends sfActions
 
   public function executeDownload(sfWebRequest $request){
     $id = $request->getParameter('id');
-    $filePath = sfConfig::get('sf_log_dir').'/qrcode.png';
+    $fileName = 'qrcode_'.uniqid().'.png';
+    $filePath = sfConfig::get('sf_log_dir').'/'.$fileName;
     $content = $this->generateUrl('detailProgram', ['id' => $id], true);
     $qrcode = new ProcessQrCode($content);
     $qrcode->writeFile($filePath);
@@ -252,20 +267,36 @@ class HomepageActions extends sfActions
     if(!file_exists($filePath)){ // file does not exist
       die('file not found');
     } else {
-      header('Content-Description: File Transfer');
-      header('Content-Type:  application/octet-stream');
-      header('Content-Disposition: attachment; filename=qrcode.png');
-      header('Content-Transfer-Encoding: binary');
-      header('Expires: 0');
-      header('Cache-Control: must-revalidate');
-      header('Pragma: public');
-      header('Content-Length: ' . filesize($filePath));
-      ob_clean();
-      flush();
-      readfile($filePath);
-
-      unlink($filePath);
-      exit();
+      $detect = new Mobile_Detect();
+      if($detect->isMobile() || $detect->isTablet()) {
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/force-download');
+//    header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="' . $fileName . '"');
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($filePath));
+        ob_clean();
+        flush();
+        readfile($filePath);
+        unlink($filePath);
+        exit();
+      }else{
+        header("Content-type: image/png");
+        header("Pragma: public");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header(sprintf('Content-Disposition: attachment; filename="%s"',$fileName));
+        ob_end_clean();
+        ob_start();
+        readfile($filePath);
+        $size = ob_get_length();
+        header("Content-Length: $size");
+        ob_end_flush();
+        unlink($filePath);
+        die;
+      }
     }
   }
 }

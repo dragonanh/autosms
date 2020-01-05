@@ -1,4 +1,4 @@
-<?php slot('homepage');  end_slot() ?>
+<?php include_partial('Common/header', ['displayBanner' => true]) ?>
 
 <div id="content">
     <!-- box intro -->
@@ -20,36 +20,36 @@
                     - Dịch vụ Tin nhắn báo bận tự động – Auto SMS giúp Quý khách từ chối cuộc gọi trong những
                     trường hợp sau:
                 </p>
-                <p class="txt" style="line-height:0.3; margin-left: 30px;">
+                <p class="txt" style="line-height:1.3; margin-left: 30px;">
                     + Từ chối cuộc gọi đến.
                 </p>
-                <p class="txt" style="line-height:0.3;  margin-left: 30px;">
+                <p class="txt" style="line-height:1.3;  margin-left: 30px;">
                     + Không thể nghe máy khi có cuộc gọi đến.
                 </p>
-                <p class="txt" style="line-height:0.3;  margin-left: 30px;">
+                <p class="txt" style="line-height:1.3;  margin-left: 30px;">
                     + Điện thoại đang nhận cuộc gọi đến hoặc có cuộc gọi đi.
                 </p>
 
-                <p class="txt" style="line-height:0.3;">
+                <p class="txt" style="line-height:1.3;">
                     <b>Lợi ích khi sử dụng dịch vụ:</b>
                 </p>
-                <p class="txt" style="line-height:0.3;  margin-left: 30px;">
+                <p class="txt" style="line-height:1.3;  margin-left: 30px;">
                     + Thể hiện sự văn minh khi từ chối cuộc gọi
                 </p>
-                <p class="txt" style="line-height:0.3;  margin-left: 30px;">
+                <p class="txt" style="line-height:1.3;  margin-left: 30px;">
                     + Không lưu lại tin nhắn. Tránh rác máy
                 </p>
-                <p class="txt" style="line-height:0.3;  margin-left: 30px;">
+                <p class="txt" style="line-height:1.3;  margin-left: 30px;">
                     + Báo bận thông minh cho các nhóm người gọi khác nhau
                 </p>
-                <p class="txt" style="line-height:0.3;  margin-left: 30px;">
+                <p class="txt" style="line-height:1.3;  margin-left: 30px;">
                     + Thể hiện cá tính với tin nhắn báo bận của chính mình
                 </p>
 
-                <p class="txt" style="line-height:0.3;">
+                <p class="txt" style="line-height:1.3;">
                     <b>Đối tượng & điều kiện sử dụng:</b>
                 </p>
-                <p class="txt" style="line-height:0.3;  margin-left: 30px;">
+                <p class="txt" style="line-height:1.3;  margin-left: 30px;">
                     - Thuê bao di động Viettel hoạt động 2 chiều.
                 </p>
             </div>

@@ -22,7 +22,6 @@
 
 <body>
     <div id="vn">
-        <?php include_partial('Common/header') ?>
         <?php echo $sf_content ?>
         <?php include_partial('Common/footer') ?>
     </div>

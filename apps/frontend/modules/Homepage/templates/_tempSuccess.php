@@ -20,9 +20,14 @@
             </div>
 
             <div id="qrcode" class="txt text-center">
-                <img style="margin: 0 auto; text-align: center; height: 200px" id="qrcode_image" src="<?php echo $qrCodeImg ?>" alt="">
-                <br>
-                Link chia sẻ: <a href="<?php echo url_for('qrcode', ['id' => $id]) ?>"><?php echo url_for('qrcode', ['id' => $id], true) ?></a>
+                <a href="<?php echo url_for('qrcode', ['id' => $id]) ?>">
+                    <img style="margin: 0 auto; text-align: center; height: 200px" id="qrcode_image" src="<?php echo $qrCodeImg ?>" alt="">
+                </a>
+            </div>
+
+            <div class="txt" style="text-align: center;">
+                <!--Khi click đường link thì sẽ chuyển sang trang qrcode2-->
+                <b>Link chia sẻ: <a href="<?php echo url_for('qrcode', ['id' => $id]) ?>"><?php echo url_for('qrcode', ['id' => $id], true) ?></a></b>
             </div>
 
             <div class="txt" style="text-align: center;">

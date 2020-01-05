@@ -1,3 +1,4 @@
+<?php include_partial('Common/header', ['displayBanner' => true]) ?>
 <div id="content">
     <div class="con_intro pv" id="intro">
         <div class="container">

@@ -4,7 +4,7 @@
         <p class="logo"><a href="<?php echo url_for('@homepage') ?>"><img style="width: 165px;" src="/images/common/favicon.ico"
                                             alt="growth honesty different"></a></p>
         <div class="box_infor" style="padding: 58px 58px 58px 0px;">
-            <p class="address" style="width: 405px;; padding-left: 50px;">
+            <p class="address">
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
                 <span>Cơ quan chủ quản: Viettel Telecom - Chăm sóc<br>khách hàng 198 (Miễn phí)</span>
             </p>

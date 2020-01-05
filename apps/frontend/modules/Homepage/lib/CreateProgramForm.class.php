@@ -14,30 +14,40 @@ class CreateProgramForm extends sfForm
   {
     $page = $this->getOption('page');
     $this->setWidgets([
-      'content' => new sfWidgetFormInputText([], [
-        'class' => 'form-control border-success',
+      'content' => $page != 'detail' ? new sfWidgetFormInputText([], [
+        'class' => 'form-control border-success txt',
         'style' => 'border-color: #CED4DA !important; height: 90px;',
         'readonly' => $page == 'detail' ? true : false,
         'list' => 'suggestions',
         'placeholder' => 'Nhập nội dung báo bận',
         'data-placeholder' => 'Nhập nội dung báo bận',
         'autocomplete' => 'off'
+      ]) : new sfWidgetFormTextarea([], [
+        'class' => 'form-control border-success txt',
+        'style' => 'border-color: #CED4DA !important; height: 90px;',
+        'readonly' => true
       ]),
       'start_time' => new sfWidgetFormInputText([], [
-        'class' => 'form-control',
+//        'class' => 'form-control',
+        'class' => $page == 'detail' ? "form-control" : 'form-control datepicker-here',
         'placeholder' => 'Thời gian bắt đầu',
         'data-placeholder' => 'Thời gian bắt đầu',
-        'data-field' => $page == 'detail' ? "" : "datetime",
-//        'type' => $page == 'detail' ? "" : "hidden",
-        'readonly' => true
+        'data-language' => 'en',
+        'data-timepicker' => 'true',
+//        'data-field' => $page == 'detail' ? "" : "datetime",
+        'readonly' => true,
+        'style' => 'height: 55px'
       ]),
       'end_time' => new sfWidgetFormInputText([], [
-        'class' => 'form-control',
+//        'class' => 'form-control',
+        'class' => $page == 'detail' ? "form-control" : 'form-control datepicker-here',
         'placeholder' => 'Thời gian kết thúc',
         'data-placeholder' => 'Thời gian kết thúc',
-        'data-field' => $page == 'detail' ? "" : "datetime",
-//        'type' => $page == 'detail' ? "text" : "hidden",
-        'readonly' => true
+        'data-timepicker' => 'true',
+        'data-language' => 'en',
+//        'data-field' => $page == 'detail' ? "" : "datetime",
+        'readonly' => true,
+        'style' => 'height: 55px'
       ]),
     ]);
 
@@ -79,7 +89,7 @@ class CreateProgramForm extends sfForm
       $startTime = str_replace('T', ' ', $values['start_time']);
       $endTime = str_replace('T', ' ', $values['end_time']);
       if($this->validateDate($startTime) && $this->validateDate($endTime)){
-        $isLTNow = $this->compareTwoDate($endTime, date('d-m-Y H:i:s'));
+        $isLTNow = $this->compareTwoDate($endTime, date('d-m-Y H:i'));
 
         if($isLTNow){
           $errorArr['end_time'] = new sfValidatorError($validator, 'Thời gian kết thúc phải lớn hơn thời gian hiện tại');
@@ -87,7 +97,7 @@ class CreateProgramForm extends sfForm
           $errorArr['start_time'] = new sfValidatorError($validator, 'Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc');
         }else{
           $dt = new DateTime($startTime);
-          $temp = $dt->modify('+ 8 hour')->format('d-m-Y H:i:s');
+          $temp = $dt->modify('+ 8 hour')->format('d-m-Y H:i');
           if(!$this->compareTwoDate($endTime,$temp)){
             $errorArr['start_time'] = new sfValidatorError($validator, 'Thời gian báo bận không quá 08h kể từ thời gian bắt đầu');
           }
@@ -110,14 +120,14 @@ class CreateProgramForm extends sfForm
     return $values;
   }
 
-  public function compareTwoDate($d1, $d2, $format = 'd-m-Y H:i:s'){
+  public function compareTwoDate($d1, $d2, $format = 'd-m-Y H:i'){
     $date1 = DateTime::createFromFormat($format, $d1);
     $date2 = DateTime::createFromFormat($format, $d2);
 
     return strtotime($date1->format($format)) < strtotime($date2->format($format));
   }
 
-  public function validateDate($date, $format = 'd-m-Y H:i:s')
+  public function validateDate($date, $format = 'd-m-Y H:i')
   {
     $d = DateTime::createFromFormat($format, $date);
     return $d && $d->format($format) == $date;
