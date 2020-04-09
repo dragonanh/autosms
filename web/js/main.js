@@ -108,16 +108,19 @@ function createProgram(obj) {
         $('#loading').remove();
         $('.section-create').html(response.template);
         initDatetimepicker();
-        // var scrollId;
+        var scrollId = false;
         if(response.errorCode === 0) {
-          // scrollId = $('#qrcode');
+          // scrollId = $('#content');
           $('header .con_main').hide();
         }
-        // else
-          // scrollId = $('.field-error:first').parents('.form-group');
-        // $('html, body').animate({
-        //   scrollTop: scrollId.offset().top - 70
-        // }, 800);
+        else
+          scrollId = $('.field-error:first').parents('.form-group');
+
+        if(scrollId !== false) {
+          $('html, body').animate({
+            scrollTop: scrollId.offset().top - 70
+          }, 800);
+        }
       },
       error: function (request, status, err) {
         isSubmit = 0;

@@ -1,5 +1,5 @@
 <?php if ($sf_user->hasFlash('success')): ?>
-    <div class="alert alert-success fade in">
+    <div class="alert alert-success">
         <button class="close" data-dismiss="alert" type="button">×</button>
         <?php echo __($sf_user->getFlash('success'), array(), 'messages') ?>
     </div>
@@ -7,7 +7,7 @@
 <?php endif; ?>
 
 <?php if ($sf_user->hasFlash('error')): ?>
-    <div class="alert alert-error fade in">
+    <div class="alert alert-warning">
         <button class="close" data-dismiss="alert" type="button">×</button>
         <?php echo __($sf_user->getFlash('error'), array(), 'messages') ?>
     </div>

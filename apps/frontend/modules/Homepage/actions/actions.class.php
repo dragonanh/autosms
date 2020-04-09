@@ -64,6 +64,7 @@ class HomepageActions extends sfActions
     if(!$id){
       $this->forward404();
     }
+
     $logger->info('=============BEGIN DETAIL==============');
     //todo: lay thong tin lich bao ban tu ws
     $autoSms = new AutosmsWS();
@@ -71,6 +72,10 @@ class HomepageActions extends sfActions
     if($detail['errorCode'] == 0){
       $logger->info(sprintf("[executeDetail] %s|GET DETAIL SUCCESS", $id));
       $mobileInfo = $this->getUser()->getAttribute('autosms.detectMobile');
+      $mobileInfo = [
+        'msisdn' => '84354926551',
+        'isSub' => false
+      ];
       if(empty($mobileInfo) && (!$this->getUser()->hasFlash('error') && !$this->getUser()->hasFlash('success'))){
         $logger->info(sprintf("[executeDetail] %s|NOT INFO IN SESSION", $id));
         //truong hop khong co thong tin so dien thoai trong session
@@ -98,11 +103,13 @@ class HomepageActions extends sfActions
       $this->form = new CreateProgramForm(null, ['schedule' => $schedule, 'page' => 'detail']);
       $this->id = $id;
 
-      if ($request->isMethod('post')) {
+      $isSub = $mobileInfo['isSub'];
+      $this->isSub = $isSub;
+
+      if ($request->isMethod('post') && !$isSub) {
         $token = $request->getParameter('token');
         if ($token == $this->form->getCSRFToken()) {
           $msisdn = $mobileInfo['msisdn'];
-          $isSub = $mobileInfo['isSub'];
           $logger->info(sprintf("[executeDetail] %s|mobile: %s|isSub: %s", $id, $msisdn, $isSub));
           if ($isSub) {
             //truong hop la sub --> thuc hien dang ky luon
@@ -157,7 +164,7 @@ class HomepageActions extends sfActions
       $startTime = date('YmdHis', strtotime($formValues['start_time']));
       $endTime = date('YmdHis', strtotime($formValues['end_time']));
       $content = removeSignClass::removeSignOnly($formValues['content']);
-      $timeStr = str_replace(" ", "' ngay ", date("H:i d/m/Y", strtotime($formValues['end_time'])));
+      $timeStr = str_replace(" ", " ngay ", date("H:i d/m/Y", strtotime($formValues['end_time'])));
       $timeStr = str_replace(":", "h", $timeStr);
       $content = str_replace("hh:mm dd/mm", $timeStr, $content);
       $result =$autoSms->createSchedule($content,$startTime, $endTime);

@@ -9,8 +9,9 @@
                     </div>
                 <?php else: ?>
                     <div class="txt" style="text-align: center;">
-                        <b>Cảm ơn Quý khách đã sử dụng dịch vụ Báo bận thông minh của Viettel với gói dịch vụ báo
-                            bận theo thời gian Lịch báo bận của Quý khách sẽ có hiệu lực</b>
+                        <div><b>Cảm ơn Quý khách đã sử dụng dịch vụ Báo bận thông minh của Viettel với gói dịch vụ báo
+                                bận theo thời gian</b></div>
+                        <div><b>Lịch báo bận của Quý khách sẽ có hiệu lực</b></div>
                     </div>
                     <?php if($schedule): ?>
                         <div class="form-group row" style="text-align: center;">
