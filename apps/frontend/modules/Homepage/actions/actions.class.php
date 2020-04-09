@@ -64,29 +64,50 @@ class HomepageActions extends sfActions
     if(!$id){
       $this->forward404();
     }
-
     $logger->info('=============BEGIN DETAIL==============');
+
+    $mobileInfo = [];
+    $this->error = null;
+
     //todo: lay thong tin lich bao ban tu ws
     $autoSms = new AutosmsWS();
     $detail = $autoSms->detailSchedule($id);
     if($detail['errorCode'] == 0){
+      $dataResponse = $request->getParameter('DATA');
+      $sign = $request->getParameter('SIG');
+      if($dataResponse && $sign){
+        $mps = new MpsWS();
+        $dataDecrypt = $mps->decryptData($dataResponse, $sign);
+        $logger->info(sprintf("[executeMpsResult] DECRYPT SUCCESS|data: %s", json_encode($dataDecrypt)));
+        $response = $dataDecrypt['RES'];
+        $transId = $dataDecrypt['REQ'];
+        $id = substr($transId,9,3);
+        $msisdn = $dataDecrypt['MOBILE'];
+        if(!empty($msisdn) && strtolower($msisdn) != 'null'){
+          //luu thong tin nhan dien vao session
+          $mobileInfo = [
+            'msisdn' => $msisdn,
+            'isSub' => $response == 205 ? true : false
+          ];
+        }else{
+          $this->error = "Không nhận diện được thuê bao, Quý khách vui lòng thử lại sau";
+        }
+
+      }
+
       $logger->info(sprintf("[executeDetail] %s|GET DETAIL SUCCESS", $id));
-      $mobileInfo = $this->getUser()->getAttribute('autosms.detectMobile');
-      $mobileInfo = [
-        'msisdn' => '84354926551',
-        'isSub' => false
-      ];
-      if(empty($mobileInfo) && (!$this->getUser()->hasFlash('error') && !$this->getUser()->hasFlash('success'))){
+//      $mobileInfo = $this->getUser()->getAttribute('autosms.detectMobile');
+      if($request->isMethod('get') && empty($mobileInfo)){
         $logger->info(sprintf("[executeDetail] %s|NOT INFO IN SESSION", $id));
         //truong hop khong co thong tin so dien thoai trong session
         //thuc hien redirect sang mps de nhan dien
         $mps = new MpsWS();
-        $transId = date('ymdHis').rand(10000,99999);
+        $transId = rand(100000000, 999999999);
         //luu id lich vao session
-        $this->getUser()->setAttribute(sprintf('autosms.detect.transId.%s', $transId), $id);
+//        $this->getUser()->setAttribute(sprintf('autosms.detect.transId.%s', $transId), $id);
         $params = [
           'SUB' => 'AUTOSMS_DAILY', 'PRO' => 'GHD',
-          'SER' => 'AutoSMS', 'REQ' => $transId
+          'SER' => 'AutoSMS', 'REQ' => $transId . $id
         ];
         $urlRedirect = $mps->getMpsUrl($params, MpsWS::MOBILE);
         $logger->info(sprintf("[executeDetail] %s|URL MPS DETECT MOBILE: %s", $id, $urlRedirect));
@@ -94,8 +115,6 @@ class HomepageActions extends sfActions
       }
 
       $logger->info(sprintf("[executeDetail] %s|DETECT SUCCESS|%s", $id, json_encode($mobileInfo)));
-
-      $this->error = null;
 
       $schedule = $detail['data'];
       $schedule['start_time'] = date('d-m-Y H:i:s', strtotime($schedule['start_time']));
@@ -125,16 +144,16 @@ class HomepageActions extends sfActions
             }
             $this->redirect('detailProgram', ['id' => $id]);
           } else {
-            $transId = date('ymdHis').rand(10000,99999);
+            $transId = rand(100000000,999999999);
             //luu id lich vao session
-            $this->getUser()->setAttribute(sprintf('autosms.transId.%s', $transId), $id);
+//            $this->getUser()->setAttribute(sprintf('autosms.transId.%s', $transId), $id);
 
             //truong hop khong phai la sub se redirect sang mps de tru tien
             $mps = new MpsWS();
             $params = [
               'SUB' => 'AUTOSMS_DAILY', 'CATE' => '', 'ITEM' => 'qrcode',
               'SUB_CP' => 'ghd', 'CONT' => 'qrcode', 'PRICE' => 0,
-              'PRO' => 'GHD', 'SER' => 'AutoSMS', 'REQ' => $transId, 'MOBILE' => $msisdn
+              'PRO' => 'GHD', 'SER' => 'AutoSMS', 'REQ' => $transId.$id, 'MOBILE' => $msisdn
             ];
             $mpsUrl = $mps->getMpsUrl($params, MpsWS::CHARGE);
             $logger->info(sprintf("[executeDetail] %s|NOT SUB - REDIRECT MPS URL CHARGE: %s|mobile: %s", $id, $mpsUrl, $msisdn));
@@ -217,15 +236,16 @@ class HomepageActions extends sfActions
     $logger->info(sprintf("[executeMpsResult] DECRYPT SUCCESS|data: %s", json_encode($dataDecrypt)));
     $response = $dataDecrypt['RES'];
     $transId = $dataDecrypt['REQ'];
+    $id = substr($transId,9,3);
     $cmd = $dataDecrypt['CMD'];
     $msisdn = $dataDecrypt['MOBILE'];
     $errorCode = 1;
     $this->schedule = null;
 
     if($cmd == 'DOWNLOAD') {
-      $id = $this->getUser()->getAttribute(sprintf('autosms.transId.%s',$transId));
+//      $id = $this->getUser()->getAttribute(sprintf('autosms.transId.%s',$transId));
       $logger->info(sprintf("[executeMpsResult] CMD=DOWNLOAD|GET ID SCHEDULE| data: %s|id: %s", json_encode($dataDecrypt), $id));
-      $this->getUser()->setAttribute(sprintf('autosms.transId.%s',$transId), null);
+//      $this->getUser()->setAttribute(sprintf('autosms.transId.%s',$transId), null);
       if(!$id) {
         $logger->info(sprintf("[executeMpsResult] CMD=DOWNLOAD|CANNOT GET ID IN SESSION| data: %s", json_encode($dataDecrypt)));
         $this->redirect('homepage');
@@ -253,25 +273,25 @@ class HomepageActions extends sfActions
         $message = $mps->getMessageByErrorCode($response);
       }
     }else{
-      $id = $this->getUser()->getAttribute(sprintf('autosms.detect.transId.%s',$transId));
+//      $id = $this->getUser()->getAttribute(sprintf('autosms.detect.transId.%s',$transId));
       $logger->info(sprintf("[executeMpsResult] CMD=MSISDN|GET ID SCHEDULE| data: %s|id: %s", json_encode($dataDecrypt), $id));
-      $this->getUser()->setAttribute(sprintf('autosms.detect.transId.%s',$transId), null);
-      if(!$id) {
-        $logger->info(sprintf("[executeMpsResult] CMD=MSISDN|CANNOT GET ID IN SESSION| data: %s", json_encode($dataDecrypt)));
-        $this->redirect('homepage');
-      }
+//      $this->getUser()->setAttribute(sprintf('autosms.detect.transId.%s',$transId), null);
+//      if(!$id) {
+//        $logger->info(sprintf("[executeMpsResult] CMD=MSISDN|CANNOT GET ID IN SESSION| data: %s", json_encode($dataDecrypt)));
+//        $this->redirect('homepage');
+//      }
 
       if (!empty($msisdn) && strtolower($msisdn) != 'null') {
         //truong hop nhan dien dươc thue bao
         //kiem tra thue bao co phai la sub không
-        $isSub = $response == 205 ? true : false;
-
-        //luu thong tin nhan dien vao session
-        $this->getUser()->setAttribute('autosms.detectMobile', [
-          'msisdn' => $msisdn,
-          'isSub' => $isSub
-        ]);
-        $url = $this->generateUrl('detailProgram', ['id' => $id]);
+//        $isSub = $response == 205 ? true : false;
+//
+//        //luu thong tin nhan dien vao session
+//        $this->getUser()->setAttribute('autosms.detectMobile', [
+//          'msisdn' => $msisdn,
+//          'isSub' => $isSub
+//        ]);
+        $url = $this->generateUrl('detailProgram', ['id' => $id, 'SIG' => $sign, 'DATA' => $dataResponse]);
         $this->redirect($url);
       }else{
         $message = 'Không nhận diện được thuê bao, Quý khách vui lòng thử lại sau';
