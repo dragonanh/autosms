@@ -29,6 +29,7 @@
                         <li><a href="<?php echo url_for('@homepage')?>">TRANG CHỦ</a></li>
                         <li><a href="<?php echo url_for('@about')?>">GIỚI THIỆU</a></li>
                         <li><a href="<?php echo url_for('@guide')?>">HƯỚNG DẪN SỬ DỤNG</a></li>
+                        <li><a href="<?php echo url_for('@policy')?>">CHÍNH SÁCH DỊCH VỤ</a></li>
                         <li><a href="<?php echo url_for('@createProgram') ?>">TẠO LỊCH</a></li>
                         <li class="form_search">
                             <input type="text" placeholder="Search...">

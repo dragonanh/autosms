@@ -347,7 +347,7 @@ header .header-main .menu_global .nav_global {
   align-items: center;
 }
 header .header-main .menu_global .nav_global li {
-  margin-left: 3.5em;
+  margin-left: 1.5em;
 }
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
   header .header-main .menu_global .nav_global li {
@@ -834,8 +834,8 @@ footer .container {
   flex-wrap: wrap;
 }
 footer .container .logo {
-  width: 18.46847%;
-  margin-right: 14.41441%;
+  width: 15.46847%;
+  margin-right: 6.41441%;
 }
 @media only screen and (max-width: 767px) {
   footer .container .logo {

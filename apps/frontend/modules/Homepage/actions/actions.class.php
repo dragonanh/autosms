@@ -44,6 +44,9 @@ class HomepageActions extends sfActions
 
 
   }
+  public function executePolicy(sfWebRequest $request){
+
+  }
   public function executeAbout(sfWebRequest $request){
 
   }

@@ -22,6 +22,9 @@ guide:
 qrcode:
   url: /qrcode/:id
   param: { module: Homepage, action: qrcode}
+policy:
+  url: /chinh-sach
+  param: { module: Homepage, action: policy}
 
 ####################################### AJAX ########################################
 ajaxCreateProgram:
